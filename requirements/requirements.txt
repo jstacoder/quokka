@@ -24,3 +24,5 @@ mistune==0.6  # rq.filter: <0.7
 
 # Commands
 manage==0.1.13
+
+flask-codemirror

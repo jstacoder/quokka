@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico">
+    <title>{{channel.long_slug.split('/')|join(' | ')}} | {{Config.get('site', 'site_name', 'Quokka site')}}</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/justified-nav/justified-nav.css" rel="stylesheet">
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <h3 class="text-muted">{{Config.get('site', 'site_name', 'Quokka site')}}</h3>
+        <nav>
+          <ul class="nav nav-justified">
+            <li class="active"><a href="/">Home</a></li>
+            {% for channel in channels.filter(show_in_menu=True)%}
+            <li><a href="{{channel.get_absolute_url()}}">{{channel.title}}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+      <div class="jumbotron">
+        <h1>{{channel.title}}</h1>
+        <p class="lead">{{channel.get_text()|safe}}</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Welcome!</a></p>
+      </div>
+      <div class="row">
+        {% for content in contents.items[0:3] %}
+        <div class="col-lg-4">
+          <h2>{{content.title}}</h2>
+          <p class="text-danger"></p>
+          <p>{{content.get_summary()|safe}} </p>
+          <p><a class="btn btn-primary" href="{{content.get_absolute_url()}}" role="button">View details &raquo;</a></p>
+        </div>
+        {% endfor %}
+      <footer class="footer">
+        <p>&copy; Powered by Quokka CMS</p>
+      </footer>
+    </div> <!-- /container -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

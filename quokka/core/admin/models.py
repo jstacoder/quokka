@@ -4,6 +4,7 @@ import random
 import datetime
 
 from flask import redirect, flash, url_for, Response, current_app
+from wtforms import fields
 
 from flask_admin.contrib.mongoengine import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin as _FileAdmin
@@ -18,7 +19,7 @@ from flask_htmlbuilder.htmlbuilder import html
 
 from quokka.modules.accounts.models import User
 from quokka.core.templates import render_template
-from quokka.core.widgets import PrepopulatedText
+from quokka.core.widgets import PrepopulatedText, TextEditor
 from quokka.core.admin.fields import ContentImageField
 from quokka.utils.upload import dated_path, lazy_media_path
 from quokka.utils import is_accessible
@@ -28,6 +29,7 @@ from quokka.core.admin.fields import ThumbField
 from quokka.core.admin.utils import _, _l, _n
 
 
+from flask.ext.codemirror.fields import CodeMirrorField
 class ThemeMixin(object):
     def render(self, template, **kwargs):
         # Store self as admin_view
@@ -121,12 +123,21 @@ def get_url(self, request, obj, fieldname, *args, **kwargs):
 
 
 class FileAdmin(ThemeMixin, Roled, _FileAdmin):
+    edit_template = "admin/custom/file_edit.html"
 
     def __init__(self, *args, **kwargs):
         self.roles_accepted = kwargs.pop('roles_accepted', list())
         self.editable_extensions = kwargs.pop('editable_extensions', tuple())
         super(FileAdmin, self).__init__(*args, **kwargs)
 
+    def get_edit_form(self):
+        return type(
+            'EditForm',
+            (self.form_base_class,),
+            dict(
+                content=CodeMirrorField('Content',language="jinja2",config=dict(lineNumbers=True))
+            ),
+        )
 
 class ModelAdmin(ThemeMixin, Roled, ModelView):
 
@@ -292,7 +303,7 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
     }
 
     form_args = {
-        # 'body': {'widget': TextEditor()},
+        'body': {'widget': TextEditor()},
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 

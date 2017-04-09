@@ -49,12 +49,27 @@ CORE_EXTENSIONS = [
     'quokka.ext.oauthlib.configure',
 ]
 
+SECRET_KEY = 'secret!'
+# mandatory
+CODEMIRROR_LANGUAGES = ['jinja2','django','python', 'htmlmixed','javascript','css','xml']
+CODEMIRROR_VERSION = '5.25.0'
+# optional
+CODEMIRROR_THEME = 'vibrant-ink'
+CODEMIRROR_ADDONS = (
+            ('display','placeholder'),
+            ('mode','overlay'),
+            ('hint','show-hint'),
+            ('hint','xml-hint'),
+            ('hint','html-hint')
+)
 
 """
 Extra extension configurators can be a custom function or
 init_app
 """
-# EXTRA_EXTENSIONS = []
+EXTRA_EXTENSIONS = [
+    'flask.ext.codemirror.CodeMirror',
+]
 
 """
 This should really be secret for security
@@ -308,7 +323,7 @@ ADMIN_ICONS = [
 ]
 
 # front end theme
-DEFAULT_THEME = 'pure'
+DEFAULT_THEME = 'jstacoder'
 
 # default content extension for url buildind
 CONTENT_EXTENSION = "html"

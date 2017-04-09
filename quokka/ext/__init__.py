@@ -6,9 +6,12 @@ from quokka.core.db import db
 
 def configure_extension(name, **kwargs):
     configurator = import_string(name)
-    args = getargspec(configurator).args
-    if 'db' in args and 'db' not in kwargs:
-        kwargs['db'] = db
+    try:
+        args = getargspec(configurator).args
+        if 'db' in args and 'db' not in kwargs:
+            kwargs['db'] = db
+    except:
+        args = ['app']
     configurator(**{key: val for key, val in kwargs.items() if key in args})
 
 
