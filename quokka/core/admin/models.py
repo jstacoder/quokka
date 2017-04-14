@@ -1,9 +1,10 @@
 # coding : utf -8
 import json
+import os
 import random
 import datetime
 
-from flask import redirect, flash, url_for, Response, current_app
+from flask import redirect, flash, url_for, Response, current_app, request
 from wtforms import fields
 
 from flask_admin.contrib.mongoengine import ModelView
@@ -131,11 +132,20 @@ class FileAdmin(ThemeMixin, Roled, _FileAdmin):
         super(FileAdmin, self).__init__(*args, **kwargs)
 
     def get_edit_form(self):
+        filetype_map = dict(
+            html='jinja2',
+            js='javascript',
+
+        )
+        edit_file = request.args.get("path","default.html")
+        file_ext = os.path.splitext(edit_file)[-1].split('.')[-1]
+        file_language = filetype_map[file_ext] if file_ext in filetype_map else file_ext
+        print "LANGUAGE: {}, EXT: {}".format(file_language, file_ext)
         return type(
             'EditForm',
             (self.form_base_class,),
             dict(
-                content=CodeMirrorField('Content',language="jinja2",config=dict(lineNumbers=True))
+                content=CodeMirrorField('Content', language=file_language, config=dict(lineNumbers=True))
             ),
         )
 

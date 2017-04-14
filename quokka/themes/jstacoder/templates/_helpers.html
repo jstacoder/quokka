@@ -115,9 +115,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
         {% endif %}
       {% endwith %}
       <p>
-
           {{content.get_summary()|truncate(255)|safe()}}
-
       </p>
   </div>
   <div class="post-meta">
