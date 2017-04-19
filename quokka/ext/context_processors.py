@@ -19,5 +19,6 @@ def configure(app):
             Content=Content,
             Channel=Channel,
             homepage=Channel.get_homepage(),
-            Link=Link
+            Link=Link,
+            dir=dir,
         )

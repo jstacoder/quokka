@@ -1,0 +1,16 @@
+{% extends theme('admin/master.html') %}
+{% import theme('admin/lib.html') as lib with context %}
+{% block body %}
+<h1> add new product type </h1>
+
+<form action="{{ url_for('quokka.modules.cart.add_product_type') }}" method=POST>
+{% for field in form_a %}
+  {{ lib.render_field(form_a, field) }}
+{% endfor %}
+{% for field in form_b %}
+  {#  {{ field() }}#}
+  {{ lib.render_field(form_b, field) }} 
+{% endfor %}
+<input type=submit name=frank />
+</form>
+{% endblock %}

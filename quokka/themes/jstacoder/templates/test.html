@@ -1,0 +1,7 @@
+<body>
+<pre>{{ dir(form_a)|tojson }}</pre>
+{% for field in form_a %}
+    <p>{{ field.name }}: {{ field.data }}</p>
+{% endfor %}
+<pre>{{ dir(form_b)|tojson }}</pre>
+</body>

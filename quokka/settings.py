@@ -11,7 +11,7 @@ get_password('db') - > ../db_password.txt
 
 Import it if you want to pass some password to your configs.
 """
-# from quokka.utils.settings import get_password
+from quokka.utils.settings import get_password
 
 
 """
@@ -221,19 +221,20 @@ GRAVATAR = {
     'force_lower': False
 }
 
+
 """
 Emails go to shell until you configure this
 http://pythonhosted.org/Flask-Mail/
-
+"""
 MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 587
 # MAIL_USE_SSL = True
 MAIL_USE_TLS = True
-MAIL_USERNAME = 'rochacbruno@gmail.com'
+MAIL_USERNAME = 'jstacoder@gmail.com'
 # Create a .email_password.txt in ../
 MAIL_PASSWORD = get_password('email')
-DEFAULT_MAIL_SENDER = None
-"""
+DEFAULT_MAIL_SENDER = 'jstacoder@gmail.com'
+
 
 """
 Take a look at Flask-Security docs
@@ -242,7 +243,7 @@ http://pythonhosted.org/Flask-Security/configuration.html
 SECURITY_PASSWORD_HASH = 'pbkdf2_sha512'  # noqa
 SECURITY_URL_PREFIX = '/accounts'
 SECURITY_PASSWORD_SALT = '6e95b1ed-a8c3-4da0-8bac-6fcb11c39ab4'  # noqa
-SECURITY_EMAIL_SENDER = 'reply@localhost'
+SECURITY_EMAIL_SENDER = 'jsstacoder@gmail.com'
 SECURITY_REGISTERABLE = False
 SECURITY_CHANGEABLE = True
 SECURITY_RECOVERABLE = True
@@ -293,7 +294,7 @@ ADMIN_RAISE_ON_VIEW_EXCEPTION = False
 MEDIA_IMAGE_ALLOWED_EXTENSIONS = ('jpg', 'jpeg', 'png', 'tiff', 'gif', 'bmp')
 MEDIA_AUDIO_ALLOWED_EXTENSIONS = ('mp3', 'wmv', 'ogg')
 MEDIA_VIDEO_ALLOWED_EXTENSIONS = ('avi', 'mp4', 'mpeg')
-MEDIA_FILE_ALLOWED_EXTENSIONS = ('pdf', 'txt', 'doc', 'docx', 'xls', 'xmlsx')
+MEDIA_FILE_ALLOWED_EXTENSIONS = ('pdf', 'txt', 'doc', 'docx', 'xls', 'xmlsx','html','js','py')
 
 """
 Quokka-Themes checks `THEME_PATHS` configuration variable to find
