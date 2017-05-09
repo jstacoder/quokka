@@ -135,7 +135,7 @@ class FileAdmin(ThemeMixin, Roled, _FileAdmin):
         filetype_map = dict(
             html='jinja2',
             js='javascript',
-
+            py='python',
         )
         edit_file = request.args.get("path","default.html")
         file_ext = os.path.splitext(edit_file)[-1].split('.')[-1]
@@ -313,7 +313,7 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
     }
 
     form_args = {
-        'body': {'widget': TextEditor()},
+        #'body': {'widget': TextEditor()},
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 

@@ -69,6 +69,7 @@ init_app
 """
 EXTRA_EXTENSIONS = [
     'flask.ext.codemirror.CodeMirror',
+    'flask_wtf.CsrfProtect',
 ]
 
 """
@@ -324,7 +325,7 @@ ADMIN_ICONS = [
 ]
 
 # front end theme
-DEFAULT_THEME = 'jstacoder'
+DEFAULT_THEME = 'pure'
 
 # default content extension for url buildind
 CONTENT_EXTENSION = "html"

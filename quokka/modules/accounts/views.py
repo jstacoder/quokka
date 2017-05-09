@@ -30,8 +30,11 @@ class ProfileView(MethodView):
     Show User Profile
     """
 
-    def get(self, user_id):
-        return render_template('accounts/profile.html')
+    def get(self, user_id=None):
+        if user_id is None:
+            user_id = get_current_user().id
+        user = User.objects(id=user_id).first()
+        return render_template('accounts/profile.html', user=user)
 
 
 class ProfileEditView(MethodView):
@@ -55,7 +58,7 @@ class ProfileEditView(MethodView):
     )
 
     @staticmethod
-    def needs_login(**kwargs):
+    def needs_login(current_user, **kwargs):
         if not current_user.is_authenticated:
             nex = kwargs.get(
                 'next',
@@ -71,7 +74,7 @@ class ProfileEditView(MethodView):
         context = {}
         for link in user.links:
             context[link.icon] = link.link
-        return self.needs_login() or render_template(
+        return self.needs_login(user) or render_template(
             'accounts/profile_edit.html',
             form=self.form(instance=user),
             **context

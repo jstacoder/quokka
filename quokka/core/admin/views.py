@@ -1,9 +1,11 @@
 # Create customized index view class
+import os
 
-from flask import current_app, flash
+from flask import current_app, flash, redirect, request, url_for
 from flask_admin.actions import action
 from quokka.core.models.content import Content
 from quokka.utils.routing import expose
+from quokka.utils import get_current_user
 from quokka.core.widgets import TextEditor, PrepopulatedText
 from .utils import _, _l
 from .ajax import AjaxModelLoader
@@ -36,6 +38,35 @@ class InspectorView(BaseView):
         }
         return self.render('admin/inspector.html', **context)
 
+
+class ProcessFileAddView(BaseView):
+   
+    roles_accepted = ('admin',)
+    
+    @expose('/')
+    def _route(self, *args, **kwargs):
+        return redirect('/admin')
+
+    @expose('/add-file', methods=['GET','POST'])
+    def add_file(self):
+        #theme_path = current_app.theme_manager.themes.get(current_app.config.get('ADMIN_THEME')).templates_path
+        filename = request.form.get('filename')
+        request_path = request.form.get('request_path')
+        url_path = request_path.split('/b')[-1]
+        dir_path = request.form.get('dir_path')
+        full_file_path = os.path.join(dir_path, filename)
+        endpoint = request.form.get('request_endpoint').split('.')[0]
+        context = {
+            'user': get_current_user(),
+            'filename': filename,
+            'full_path': full_file_path,
+        }
+        if not os.path.exists(full_file_path):
+            os.system('touch {}'.format(full_file_path))
+            flash('created a file named: {filename}'.format(filename=full_file_path))
+        else:
+            flash('File {filename} already exists!!'.format(filename=full_file_path))
+        return redirect(url_for('{}.edit'.format(endpoint),path=url_path))
 
 ###############################################################
 # Admin model views

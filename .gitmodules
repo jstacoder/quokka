@@ -1,0 +1,3 @@
+[submodule "quokka/themes/material"]
+	path = quokka/themes/material
+	url = https://github.com/quokkaproject/theme_material
