@@ -44,8 +44,6 @@ Long live the Quokka!!!
 [![Coverage Status](https://coveralls.io/repos/github/quokkaproject/quokka/badge.svg?branch=development)](https://coveralls.io/github/quokkaproject/quokka?branch=development)
 [![Code Health](https://landscape.io/github/quokkaproject/quokka/development/landscape.svg?style=flat)](https://landscape.io/github/quokkaproject/quokka/development)
 [![Updates](https://pyup.io/repos/github/quokkaproject/quokka/shield.svg)](https://pyup.io/repos/github/quokkaproject/quokka/)
-
-
 [![Stories in Ready](https://badge.waffle.io/quokkaproject/quokka.png?label=ready&title=Ready)](http://waffle.io/quokkaproject/quokka)
 [![irc #quokkaproject](https://img.shields.io/badge/IRC-%23quokkaproject-green.svg?style=flat)](http://webchat.freenode.net/?channels=%23quokkaproject&uio=d4)
 
