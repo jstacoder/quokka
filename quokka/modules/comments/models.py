@@ -11,6 +11,7 @@ class BaseComment(object):
     body = db.StringField(required=True)
     spam = db.BooleanField()
     deleted = db.BooleanField()
+    viewed_by_moderator = db.BooleanField(default=False)
     content_format = db.StringField(
         choices=('markdown',),
         default="markdown"
@@ -32,7 +33,7 @@ class Reply(Publishable, BaseComment, db.EmbeddedDocument):
             self.uid = str(uuid.uuid4())
 
 
-class Comment(Publishable, BaseComment, db.Document):
+class Comment(Publishable, BaseComment, db.DynamicDocument):
     path = db.StringField(max_length=255, required=True)
     replies = db.ListField(db.EmbeddedDocumentField(Reply))
 

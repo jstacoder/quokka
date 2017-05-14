@@ -4,6 +4,7 @@ import datetime
 from quokka.core.models.channel import Channel
 from quokka.core.models.config import Config
 from quokka.core.models.content import Content, Link
+from quokka.modules.comments.models import Comment
 from flask_admin.helpers import get_url
 from flask import request
 from functools import partial
@@ -12,6 +13,11 @@ load_req_val = lambda name: getattr(request, name)
 load_req_path = partial(load_req_val,'path')
 load_req_endpoint = partial(load_req_val, 'endpoint')
 
+
+
+def get_unmoderated_comments():
+    viewed_comments = list(Comment.objects(viewed_by_moderator=True))
+    return filter(lambda comment: comment not in viewed_comments, list(Comment.objects()))
 
 def get_current_theme_path(app):
     add_to_path = None
@@ -48,4 +54,5 @@ def configure(app):
             request_endpoint=load_req_endpoint,
             bp=map(str,app.blueprints),
 	    theme_path=load_theme_path, 
+        get_comments=get_unmoderated_comments,
         )

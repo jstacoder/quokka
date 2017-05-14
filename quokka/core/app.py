@@ -39,3 +39,7 @@ class QuokkaModule(Blueprint):
     def __init__(self, name, *args, **kwargs):
         name = "quokka.modules." + name
         super(QuokkaModule, self).__init__(name, *args, **kwargs)
+
+    def shell_context_processor(self, *args, **kwargs):
+        from flask import current_app
+        return current_app.shell_context_processor(*args, **kwargs)

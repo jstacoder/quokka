@@ -5,8 +5,18 @@ from quokka import admin
 from quokka.core.admin.models import ModelAdmin
 from quokka.utils.translation import _l
 
-from .models import Role, User, Connection
+from .models import Role, User, Connection, ContactInfo
+from .forms import CreateContactInfoForm
 
+class ContactInfoAdmin(ModelAdmin):
+    roles_accepted = ('admin',)
+    column_list = ('user.username', 'user.name', 'user.email')
+
+    def get_column_name(self, col):
+        return col.split('.')[-1].title()
+
+    def get_edit_form(self, *args, **kwargs):
+        return CreateContactInfoForm
 
 class UserAdmin(ModelAdmin):
     roles_accepted = ('admin',)
@@ -30,6 +40,7 @@ class UserAdmin(ModelAdmin):
             setpwd = model.newpassword
             del model.newpassword
             model.set_password(setpwd, save=True)
+        
 
 
 class RoleAdmin(ModelAdmin):
@@ -45,3 +56,4 @@ admin.register(User, UserAdmin, category=_l("Accounts"), name=_l("User"))
 admin.register(Role, RoleAdmin, category=_l("Accounts"), name=_l("Roles"))
 admin.register(Connection, ConnectionAdmin,
                category=_l("Accounts"), name=_l("Connection"))
+admin.register(ContactInfo, ContactInfoAdmin, category=_l('Accounts'), name=_l('Contact Info'))

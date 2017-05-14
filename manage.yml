@@ -15,7 +15,19 @@ project_name: Quokka CMS
 shell:
   auto_import:
     display: true
-    objects: {}
+    objects: 
+        quokka.modules.comments.models.Comment:
+        quokka.modules.accounts.models.Role:
+        quokka.modules.accounts.models.User:
+        quokka.modules.accounts.models.Connection:
+        quokka.modules.accounts.models.UserLink:
+        quokka.modules.posts.models.Post:
+        quokka.core.models.subcontent.SubContent:
+        quokka.core.models.channel.Channel:
+        quokka.core.models.config.Config:
+  init_script: |
+    globals().update(**app.make_shell_context())
+    
   banner:
     enabled: true
     message: Welcome to {project_name} interactive Shell

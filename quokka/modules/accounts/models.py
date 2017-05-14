@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import logging
+import json
 from random import randint
 from flask import url_for
 from quokka.core.db import db
@@ -179,3 +180,13 @@ class Connection(db.Document):
     @property
     def user(self):
         return User.objects(id=self.user_id).first()
+
+class ContactInfo(db.DynamicDocument):
+    user = db.ReferenceField(User, reverse_delete_rule=db.CASCADE)
+    
+    def to_json(self):
+        rtn = json.loads(super(ContactInfo, self).to_json())
+        rtn.pop('user')
+        rtn.update(json.loads(self.user.to_json()))
+        return json.dumps(rtn)
+        
