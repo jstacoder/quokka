@@ -41,20 +41,21 @@ class ProfileEditView(MethodView):
     """
     Edit User Profile
     """
+    only=[
+        'name',
+        'email',
+        'username',
+        'tagline',
+        'bio',
+        'use_avatar_from',
+        'gravatar_email',
+        'avatar_url',
+        # 'links',  # fix multifields
+    ]
 
     form = model_form(
         User,
-        only=[
-            'name',
-            'email',
-            'username',
-            'tagline',
-            'bio',
-            'use_avatar_from',
-            'gravatar_email',
-            'avatar_url',
-            # 'links',  # fix multifields
-        ]
+        only=only,
     )
 
     @staticmethod
@@ -76,7 +77,7 @@ class ProfileEditView(MethodView):
             context[link.icon] = link.link
         return self.needs_login(user) or render_template(
             'accounts/profile_edit.html',
-            form=self.form(obj=user),
+            form=model_form(User,only=self.only,obj=user),
             **context
         )
 
