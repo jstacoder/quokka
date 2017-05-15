@@ -77,7 +77,7 @@ class ProfileEditView(MethodView):
             context[link.icon] = link.link
         return self.needs_login(user) or render_template(
             'accounts/profile_edit.html',
-            form=model_form(User,only=self.only,obj=user),
+            form=self.form(obj=user),
             **context
         )
 
