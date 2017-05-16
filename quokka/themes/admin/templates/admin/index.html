@@ -2,28 +2,49 @@
 
 {% block body %}
     <div class="row">
-
+        <style>
+            .post-list {
+                display:inline-block;
+            }
+            .post-list:not(.b) {
+                min-width:400px;
+            }
+            .post-list.b {
+                margin-left: -25px;
+                margin-right: 15px;
+            }
+            .admin-list {
+                list-style-type: none;
+            }
+        </style>
 
         <div class="well span11">
             {%if config.get('ADMIN_HEADER') %}{{config.get('ADMIN_HEADER')|safe}}{% endif %}
             <h1>{{ admin_view.admin.name }}</h1>
             <h3>{{_gettext('Latest Posts')}}:</h3>
-            <ul>
+            <ul class="admin-list">
                 {% for post in get_contents(model='posts.post', limit=5) %}
                     <li style="margin-bottom: 5px">
+                        <div class="post-list b">
+                        <i class={% if post.published %} "icon-ok-circle" {% else %} "icon-ban-circle" {% endif %}></i>
+                        </div>
+                        <div class="post-list a">
                         {{ post.channel.title }} | {{ post.title }}
-                        | <i class={% if post.published %} "icon-ok-circle" {% else %} "icon-ban-circle" {% endif %}></i>
-                        <a class="btn btn-success btn-small" href="{{ url_for('post.edit_view', id=post.id)}}">
+                        </div>                        
+                        <div class="post-list c">
+                        | <a class="btn btn-success btn-small" href="{{ url_for('post.edit_view', id=post.id)}}">
                         <i class="icon-edit"></i> {{_gettext('Edit')}}</a>
                           <a class="btn btn-primary btn-small" target="_blank" href="{{ post.get_absolute_url(endpoint='quokka.core.detail' if post.published else 'quokka.core.preview') }}">
                           <i class="icon-globe"></i> {{_gettext('View') if post.published else _gettext('Preview')}}</a>
+                          </div>
                     </li>
                 {% else %}
                     <li>{{ _gettext("There is no content yet!") }}<br><a class="btn btn-primary" href="{{ url_for('post.create_view') }}"><i class="icon-pencil"></i> {{_gettext('Create a new post')}}</a></li>
                 {% endfor %}
             </ul>
-        </div>
-
+            <p>you need to look at <a href="{{ url_for('comment.index_view',flt0_0=0) }}">{{ get_comments()|count }}</a> comments!</p>
+        </diviv>
+        
 {#        <div class="well span3">#}
 {#            <h3>{{_gettext('Latest Comments')}}:</h3>#}
 {#            <ul>#}
