@@ -69,8 +69,8 @@
 
     <div class="row">
     {% for endpoint, icon, text in config.get('ADMIN_ICONS', [])%}
-        <div class="col-xs-2">
-            <a href="{{ url_for(endpoint) }}" class="btn btn-primary">
+        <div class="col-xs-1">
+            <a href="{{ url_for(endpoint) }}" class="btn btn-primary btn-block">
                 <i class="icon-{{icon}} icon-white"></i>
                 <span><strong>{{_gettext(text)}}</strong></span>
             </a>
