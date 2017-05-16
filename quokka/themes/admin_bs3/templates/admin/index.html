@@ -18,7 +18,7 @@
             }
         </style>
 
-        <div class="well col-xs-11">
+        <div class="well col-xs-9">
             {%if config.get('ADMIN_HEADER') %}{{config.get('ADMIN_HEADER')|safe}}{% endif %}
             <h1>{{ admin_view.admin.name }}</h1>
             <h3>{{_gettext('Latest Posts')}}:</h3>
