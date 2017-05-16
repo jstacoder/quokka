@@ -35,9 +35,9 @@
                             </div>                                                                    
                             <div class="col-xs-5">
                                 | <a class="btn btn-success btn-sm" href="{{ url_for('post.edit_view', id=post.id)}}">
-                                    <i class="glyphicon glyphicon-edit"></i> {{_gettext('Edit')}}</a>
+                                    <i class="glyphicon glyphicon-edit"></i></a>
                                     <a class="btn btn-primary btn-sm" target="_blank" href="{{ post.get_absolute_url(endpoint='quokka.core.detail' if post.published else 'quokka.core.preview') }}">
-                                    <i class="glyphicon glyphicon-globe"></i> {{_gettext('View') if post.published else _gettext('Preview')}}</a>
+                                    <i class="glyphicon glyphicon-globe"></i></a>
                             </div>                                    
                         </div>                            
                     </li>
