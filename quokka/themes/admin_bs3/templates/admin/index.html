@@ -42,7 +42,7 @@
                     <li>{{ _gettext("There is no content yet!") }}<br><a class="btn btn-primary" href="{{ url_for('post.create_view') }}"><i class="icon-pencil"></i> {{_gettext('Create a new post')}}</a></li>
                 {% endfor %}
             </ul>
-            <p>you need to look at <a href="{{ url_for('comment.index_view',flt0_0=0) }}">{{ get_comments()|count }}</a> comments!</p>
+            <p>you need to look at <a href="{{ url_for('comment.index_view',flt0_0=0) }}">{{ get_unmoderated_comments()|count }}</a> comments!</p>
         </div>
         
         <div class="well col-xs-3">

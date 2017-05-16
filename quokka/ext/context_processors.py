@@ -40,19 +40,21 @@ def configure(app):
     def inject():
         now = datetime.datetime.now()
         return dict(
-            channels=Channel.objects(published=True,
-                                     available_at__lte=now,
-                                     parent=None),
+            channels=Channel.objects(
+                            published=True,
+                            available_at__lte=now,
+                            parent=None
+            ),
             Config=Config,
             Content=Content,
             Channel=Channel,
             homepage=Channel.get_homepage(),
             Link=Link,
             dir=dir,
-	    get_url=get_url,
+	        get_url=get_url,
             request_path=load_req_path,
             request_endpoint=load_req_endpoint,
             bp=map(str,app.blueprints),
-	    theme_path=load_theme_path, 
-        get_comments=get_unmoderated_comments,
+	        theme_path=load_theme_path, 
+            get_unmoderated_comments=get_unmoderated_comments,
         )
