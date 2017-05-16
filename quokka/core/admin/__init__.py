@@ -27,6 +27,12 @@ _n  # noqa
 class QuokkaAdmin(Admin):
     registered = []
 
+    def __init__(self, *args, **kwargs):
+        template_mode = get_setting_value('ADMIN_TEMPLATE_MODE', None)
+        if template_mode is not None:
+            kwargs['template_mode'] = template_mode
+        super(QuokkaAdmin, self).__init__(*args, **kwargs)
+
     def register(self, model, view=None, *args, **kwargs):
         _view = view or ModelAdmin
         admin_view_exclude = get_setting_value('ADMIN_VIEW_EXCLUDE', [])

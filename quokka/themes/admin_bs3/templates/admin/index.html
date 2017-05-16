@@ -26,7 +26,7 @@
                 {% for post in get_contents(model='posts.post', limit=5) %}
                     <li style="margin-bottom: 5px">
                         <div class="post-list b">
-                        <i class={% if post.published %} "icon-ok-circle" {% else %} "icon-ban-circle" {% endif %}></i>
+                        <i class={% if post.published %} "glyphicon glyphicon-ok-circle" {% else %} "glyphicon glyphicon-ban-circle" {% endif %}></i>
                         </div>
                         <div class="post-list a">
                         {{ post.channel.title }} | {{ post.title }}
