@@ -25,18 +25,24 @@
             <ul class="admin-list">
                 {% for post in get_contents(model='posts.post', limit=5) %}
                     <li style="margin-bottom: 5px">
-                        <div class="post-list b">
-                        <i class={% if post.published %} "glyphicon glyphicon-ok-circle" {% else %} "glyphicon glyphicon-ban-circle" {% endif %}></i>
+                        <div class="post-list b row">
+                            <div class="col-xs-1">
+                                <i class={% if post.published %} "glyphicon glyphicon-ok-circle" {% else %} "glyphicon glyphicon-ban-circle" {% endif %}></i>
+                            </div>
+                        </div>                
+                        <div class="post-list a row">
+                            <div class="col-xs-7">
+                                {{ post.channel.title }} | {{ post.title }}
+                            </div>                    
+                        </div>    
+                        <div class="post-list c row">
+                            <div class="col-xs-4">
+                                | <a class="btn btn-success btn-small" href="{{ url_for('post.edit_view', id=post.id)}}">
+                                    <i class="glyphicon glyphicon-edit"></i> {{_gettext('Edit')}}</a>
+                                    <a class="btn btn-primary btn-small" target="_blank" href="{{ post.get_absolute_url(endpoint='quokka.core.detail' if post.published else 'quokka.core.preview') }}">
+                                    <i class="glyphicon glyphicon-globe"></i> {{_gettext('View') if post.published else _gettext('Preview')}}</a>
+                            </div>                                    
                         </div>
-                        <div class="post-list a">
-                        {{ post.channel.title }} | {{ post.title }}
-                        </div>                        
-                        <div class="post-list c">
-                        | <a class="btn btn-success btn-small" href="{{ url_for('post.edit_view', id=post.id)}}">
-                        <i class="glyphicon glyphicon-edit"></i> {{_gettext('Edit')}}</a>
-                          <a class="btn btn-primary btn-small" target="_blank" href="{{ post.get_absolute_url(endpoint='quokka.core.detail' if post.published else 'quokka.core.preview') }}">
-                          <i class="glyphicon glyphicon-globe"></i> {{_gettext('View') if post.published else _gettext('Preview')}}</a>
-                          </div>
                     </li>
                 {% else %}
                     <li>{{ _gettext("There is no content yet!") }}<br><a class="btn btn-primary" href="{{ url_for('post.create_view') }}"><i class="icon-pencil"></i> {{_gettext('Create a new post')}}</a></li>
@@ -45,7 +51,8 @@
             <p>you need to look at <a href="{{ url_for('comment.index_view',flt0_0=0) }}">{{ get_unmoderated_comments()|count }}</a> comments!</p>
         </div>
         
-        <div class="well col-xs-3">
+        <div class="col-xs-3">
+            <div class=well>
             <h3>{{_gettext('Latest Comments')}}:</h3>
             <ul>
                 {% for comment in get_comments(limit=3)  %}
@@ -64,10 +71,10 @@
                 {% endfor %}
             </ul>
         </div>
+    </div>            
+</div>
 
-    </div>
-
-    <div class="row">
+<div class="row">
     {% for endpoint, icon, text in config.get('ADMIN_ICONS', [])%}
         <div class="col-xs-1">
             <a href="{{ url_for(endpoint) }}" class="btn btn-primary btn-lrg">
