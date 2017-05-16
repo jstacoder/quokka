@@ -22,12 +22,10 @@ class UserAdmin(ModelAdmin):
     roles_accepted = ('admin',)
     column_searchable_list = ('name', 'email')
     column_list = ('name', 'email', 'active',
-                   'last_login_at', 'login_count')
+                   'last_login_at', 'login_count',
+                   'current_login_ip','last_login_ip')
     form_columns = ('name', 'email', 'roles', 'active', 'newpassword',
-                    'confirmed_at',
-                    'last_login_at', 'current_login_at', 'last_login_ip',
-                    'current_login_ip', 'login_count', 'tagline',
-                    'gravatar_email', 'use_avatar_from',
+                    'confirmed_at','tagline','gravatar_email', 'use_avatar_from',
                     'avatar_file_path', 'avatar_url',
                     'bio', 'links', 'values')
 
