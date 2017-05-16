@@ -50,7 +50,7 @@ media/*
 # VIM
 .ropeproject
 *.swp
-
+*.sql
 quokka/mediafiles
 etc/elasticdata/elasticsearch
 etc/mongodata/journal
@@ -65,3 +65,4 @@ etc/mongodata/*.data
 *.log
 *.pid
 *.cache*
+venv

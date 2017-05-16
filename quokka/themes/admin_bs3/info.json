@@ -1,0 +1,12 @@
+{
+    "identifier":   "admin_bs3",
+    "application":  "quokka",
+    "name":         "Quokka bootstrap3 admin theme",
+    "description":  "admin theme for quokka CMS.",
+    "author":       "Kyle Roux",
+    "website":      "http://www.blog.jstacoder.com",
+    "license":      "WTF",
+    "preview":      "preview.png",
+    "doctype":      "html5",
+    "version":      "1.1.0"
+}

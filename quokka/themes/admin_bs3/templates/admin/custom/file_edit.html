@@ -1,0 +1,12 @@
+{% extends theme('admin/master.html') %}
+{% import theme('admin/lib.html') as lib with context %}
+  {% block head_tail %}
+    {{ codemirror.include_codemirror() }}
+  {% endblock %}
+
+{% block body %}
+  {% block header %}<h3>{{ header_text }}</h3>{% endblock %}
+  {% block fa_form %}
+    {{ lib.render_form(form, dir_url) }}
+  {% endblock %}
+{% endblock %}
