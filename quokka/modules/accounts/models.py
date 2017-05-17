@@ -172,6 +172,7 @@ class UserProfile(db.DynamicDocument):
     user_id = db.ObjectIdField()
     email = db.StringField(max_length=255, unique=True)
 
+    @classmethod
     def create_profile(self, username, user, email=None):
         create_args = dict(
             username=username,
