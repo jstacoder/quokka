@@ -16,6 +16,7 @@ from .utils import ThemeChanger
 logger = logging.getLogger()
 
 
+
 # Auth
 class Role(db.Document, ThemeChanger, HasCustomValue, RoleMixin):
 
@@ -163,6 +164,24 @@ class User(db.DynamicDocument, ThemeChanger, HasCustomValue, UserMixin):
     @property
     def connections(self):
         return Connection.objects(user_id=str(self.id))
+
+
+class UserProfile(db.DynamicDocument):
+
+    username = db.StringField(max_length=255, unique=True, required=True)
+    user_id = db.ObjectIdField()
+    email = db.StringField(max_length=255, unique=True)
+
+    def create_profile(self, username, user, email=None):
+        create_args = dict(
+            username=username,
+            user_id=user.id,
+        )
+        if email is not None:
+            create_args.update(email=email)            
+        return self.objects.create(
+            **create_args
+        )
 
 
 class Connection(db.Document):
