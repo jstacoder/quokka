@@ -184,6 +184,10 @@ class UserProfile(db.DynamicDocument):
             **create_args
         )
 
+    @property
+    def user(self):
+        return User.objects(id=self.user_id).first()
+
 
 class Connection(db.Document):
     user_id = db.ObjectIdField()
