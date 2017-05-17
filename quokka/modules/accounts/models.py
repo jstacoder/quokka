@@ -173,14 +173,14 @@ class UserProfile(db.DynamicDocument):
     email = db.StringField(max_length=255, unique=True)
 
     @classmethod
-    def create_profile(self, username, user, email=None):
+    def create_profile(cls, user):
         create_args = dict(
-            username=username,
+            username=user.username,
             user_id=user.id,
         )
-        if email is not None:
-            create_args.update(email=email)            
-        return self.objects.create(
+        if user.email is not None:
+            create_args.update(email=user.email)            
+        return cls.objects.create(
             **create_args
         )
 
