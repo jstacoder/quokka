@@ -1,12 +1,26 @@
 {% macro build_node(node, style="", allow_hover=True) %}
    {% with has_children = node.get_children(show_in_menu=True).count() %}
     <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}menu-has-children{%endif%}">
-        {% if node.link_in_menu %}
-            <a href="{{ node.get_absolute_url() }}" class="menu-link">{{node.title}}</a>
-        {% else %}
-            <a href="#" class="menu-link">{{node.title}}</a>
+        {% if has_children %}
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {% if node.link_in_menu %}
+                        <a href="{{ node.get_absolute_url() }}" class="menu-link">{{node.title}}</a>
+                    {% else %}
+                        <a href="#" class="menu-link">{{node.title}}</a>
+                    {% endif %}
+                    <span class="caret"></span>
+                </button>
+                {{build_main_nodes(parent=node)}}
+            </div>                
+        {% else %}        
+            {% if node.link_in_menu %}
+                <a href="{{ node.get_absolute_url() }}" class="menu-link">{{node.title}}</a>
+            {% else %}
+                <a href="#" class="menu-link">{{node.title}}</a>
+            {% endif %}            
+            {{build_main_nodes(parent=node)}}
         {% endif %}
-        {{build_main_nodes(parent=node)}}
     </li>
     {% endwith %}
 {% endmacro %}
@@ -19,12 +33,13 @@
             {% endfor %}
         </ul>
      {% elif parent %}
-        <ul class="pure-menu-children">
+        <ul class="dropdown-menu">
             {% for node in parent.get_children(show_in_menu=True) %}
                 {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True)}}
             {% endfor %}
         </ul>
      {% endif %}
+
 {% endmacro %}
 
 {% macro render_small_author(author, size=30, multiple=False) %}
