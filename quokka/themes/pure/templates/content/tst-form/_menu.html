@@ -37,7 +37,7 @@
 {% endmacro%}
 
 {% macro build_nodes(nodes)%}
-<div class="topbar" style="background-image: url('{{Config.get('site', 'sidebar_image', theme_static('img/bg.jpg'))}}')">
+<div class="topbar" {% if Config.get('site', 'add_sidebar_image') %}style="background-image: url('{{Config.get('site', 'sidebar_image', theme_static('img/bg.jpg'))}}')"{% endif %}>
 <a href="/" class="back-home"><img class="internal-logo" src="{{ Config.get('site', 'logo_internal', theme_static('img/logo_black.png')) }}" alt="{{Config.get('site', 'site_name')}}"></a>
 {% if content %}
      <small>Published in {{ content.created_at.strftime('%H:%M of %m/%d/%Y') }} by
