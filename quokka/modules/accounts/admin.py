@@ -24,10 +24,13 @@ from .models import Role, User, Connection, UserProfile#, ContactInfo
 class UserProfileAdmin(ModelAdmin):
     roles_accepted = ('admin',)
     form_create_rules = [
-        rules.FieldSet(('username','email','user_id'), 'User Data'),
+        rules.FieldSet(('username','email'), 'User Data'),
         rules.Header("TESTING!!!"),
         rules.Field("email"),
         "username",
+        rules.Text(
+            "<h2>Hmmmmm</h2>"
+        )
         rules.Container("_testing.test", rules.Field("email"))
     ]
 
