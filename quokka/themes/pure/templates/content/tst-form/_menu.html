@@ -8,7 +8,7 @@
     <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}menu-has-children{%endif%}">
         {% if has_children %}
             <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{ current_num }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-{{ node.slug }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     {% if node.link_in_menu %}
                         <a href="{{ node.get_absolute_url() }}" class="menu-link">{{node.title}}</a>
                     {% else %}
@@ -33,7 +33,7 @@
      {% if not parent and nodes %}
         <ul class="nav nav-justified">
             {% for node in nodes|selectattr("show_in_menu") %}
-                {{ build_node(node, current_num=loop.index+10) }}
+                {{ build_node(node, current_num=loop.index) }}
             {% endfor %}
         </ul>
      {% elif parent %}
