@@ -1,27 +1,29 @@
 {% macro build_node(node, style="", allow_hover=True, current_num=False) %}
-   {% with has_children = node.get_descendants(show_in_menu=True).count()-1 %}
+    {% with has_children = node.get_descendants(show_in_menu=True).count()-1 %}
+        {% set is_child = node.get_ancestors_count() != 0 %}
+        {% set is_only_parent = not is_child %}
     {#{% if current_num %}
         {% set current_num = current_num + 1 %}
     {% else %}
         {% set current_num = 1 %}
     {% endif %}#}
-    <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}dropdown{%endif%}">        
-        <a 
-            {% if has_children %}
-                class="btn btn-link dropdown-toggle"
-                type="button"             
-                id="dropdownMenu-{{ node.slug }}"
-                data-toggle="dropdown" 
-                aria-haspopup="true" 
-                aria-expanded="false"
-            {% endif %}              
-            {% if node.link_in_menu %}
-                href="{{ node.get_absolute_url() }}"
-            {% endif %}>
-            {{node.title}}            
-            {% if has_children %}                                                         
-                <span class="caret"></span>
-            {% endif %}
+        <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}dropdown{%endif%}">        
+            <a 
+                {% if is_only_parent %}
+                    class="btn btn-link dropdown-toggle"
+                    type="button"             
+                    id="dropdownMenu-{{ node.slug }}"
+                    data-toggle="dropdown" 
+                    aria-haspopup="true" 
+                    aria-expanded="false"
+                {% endif %}              
+                {% if node.link_in_menu %}
+                    href="{{ node.get_absolute_url() }}"
+                {% endif %}>
+                {{node.title}}            
+                {% if is_only_parent %}                                                         
+                    <span class="caret"></span>
+                {% endif %}
         </a>
         {{build_main_nodes(parent=node)}}    
     </li>
