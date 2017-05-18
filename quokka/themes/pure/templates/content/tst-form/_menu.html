@@ -5,34 +5,26 @@
     {% else %}
         {% set current_num = 1 %}
     {% endif %}#}
-    <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}menu-has-children{%endif%}">
-        {% if has_children %}
-            <div class="dropdown btn-group" role="group">
-                <button 
-                    class="btn btn-default dropdown-toggle" 
-                    type="button" 
-                    id="dropdownMenu-{{ node.slug }}" 
-                    data-toggle="dropdown" 
-                    aria-haspopup="true" 
-                    aria-expanded="false">                    
-                        {% if node.link_in_menu %}
-                            <a href="{{ node.get_absolute_url() }}">
-                        {% endif %}
-                            {{node.title}}
-                        {% if node.link_in_menu %}
-                            </a>
-                        {% endif %}                                                         
-                        <span class="caret"></span>
-                </button>
-                {{build_main_nodes(parent=node)}}
-            </div>                
-        {% else %}                    
-            <a 
-                href="{% if node.link_in_menu %}{{ node.get_absolute_url() }}{% else %}#{% endif %}" 
-                class="menu-link">
-                {{node.title}}
-            </a>                                        
-        {% endif %}
+    <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}dropdown{%endif%}">
+        <div class="btn-group" role="group">
+            <button 
+                class="btn btn-default dropdown-toggle" 
+                type="button" 
+                id="dropdownMenu-{{ node.slug }}" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false">                    
+                    {% if node.link_in_menu %}
+                        <a href="{{ node.get_absolute_url() }}">
+                    {% endif %}
+                        {{node.title}}
+                    {% if node.link_in_menu %}
+                        </a>
+                    {% endif %}                                                         
+                    <span class="caret"></span>
+            </button>
+            {{build_main_nodes(parent=node)}}
+        </div>                
     </li>
     {% endwith %}
 {% endmacro %}
