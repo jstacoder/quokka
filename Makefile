@@ -6,7 +6,10 @@ run:
 shell:
 	manage shell
 
-test: pep8
+test8: pep8
+	QUOKKA_MODE=test py.test --cov=quokka -l --tb=short --maxfail=1 quokka/
+
+test:
 	QUOKKA_MODE=test py.test --cov=quokka -l --tb=short --maxfail=1 quokka/
 
 pep8:
