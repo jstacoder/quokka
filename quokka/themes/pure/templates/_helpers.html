@@ -315,20 +315,22 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
             <section class="post">
                 <header class="post-header">
                     {% if not link_in_title %}
-                    <h1>{{ content.title }}</h1>
+                        <h1>{{ content.title }}</h1>
                     {%else%}
-                    <h3><a class="post-title" href="{{content.get_absolute_url()}}">{{ content.title }}</a></h3>
-                    {% endif %}
+                        <h3><a class="post-title" href="{{content.get_absolute_url()}}">{{ content.title }}</a></h3>
+                     {% endif %}
                     {% if breadcrumbs %}
-                    <p class="post-meta">
-                    {{load_breadcrumbs()}}
-                    </p>
+                        <p class="post-meta">
+                            {{load_breadcrumbs()}}
+                        </p>
                     {% endif %}
-                    <p class="post-meta">
-                        // Tags {% for tag in content.tags %}
-                            <a class="post-category" href="{{url_for('quokka.core.tag', tag=tag)}}">{{ tag }}</a>
-                        {% endfor %}
-                    </p>
+                    {% if content.tags|count > 0 %}
+                        <p class="post-meta">
+                            // Tags {% for tag in content.tags %}
+                                <a class="post-category" href="{{url_for('quokka.core.tag', tag=tag)}}">{{ tag }}</a>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
                 </header>
 
                  {% with main_image=content.get_main_image_url(thumb=False, default=None) %}

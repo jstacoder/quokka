@@ -46,7 +46,8 @@
         </ul>
      {% elif parent %}
         <ul class="dropdown-menu">
-            {% for node in parent.get_children(show_in_menu=True) %}
+            {#{% for node in parent.get_children(show_in_menu=True) %}#}
+            {% for node in parent.get_descendants(show_in_menu=True)[1:] %}
                 {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True)}}
             {% endfor %}
         </ul>
