@@ -7,23 +7,31 @@
     {% endif %}#}
     <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}menu-has-children{%endif%}">
         {% if has_children %}
-            <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu-{{ node.slug }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    {% if node.link_in_menu %}
-                        <a href="{{ node.get_absolute_url() }}" class="menu-link">{{node.title}}</a>
-                    {% else %}
-                        <a href="#" class="menu-link">{{node.title}}</a>
-                    {% endif %}
-                    <span class="caret"></span>
+            <div class="dropdown btn-group" role="group">
+                <button 
+                    class="btn btn-default dropdown-toggle" 
+                    type="button" 
+                    id="dropdownMenu-{{ node.slug }}" 
+                    data-toggle="dropdown" 
+                    aria-haspopup="true" 
+                    aria-expanded="false">                    
+                        {% if node.link_in_menu %}
+                            <a href="{{ node.get_absolute_url() }}">
+                        {% endif %}
+                            {{node.title}}
+                        {% if node.link_in_menu %}
+                            </a>
+                        {% endif %}                                                         
+                        <span class="caret"></span>
                 </button>
                 {{build_main_nodes(parent=node)}}
             </div>                
-        {% else %}        
-            {% if node.link_in_menu %}
-                <a href="{{ node.get_absolute_url() }}" class="menu-link">{{node.title}}</a>
-            {% else %}
-                <a href="#" class="menu-link">{{node.title}}</a>
-            {% endif %}            
+        {% else %}                    
+            <a 
+                href="{% if node.link_in_menu %}{{ node.get_absolute_url() }}{% else %}#{% endif %}" 
+                class="menu-link">
+                {{node.title}}
+            </a>                                        
         {% endif %}
     </li>
     {% endwith %}
@@ -33,13 +41,13 @@
      {% if not parent and nodes %}
         <ul class="nav nav-justified">
             {% for node in nodes|selectattr("show_in_menu") %}
-                {{ build_node(node, current_num=loop.index) }}
+                {{ build_node(node) }}
             {% endfor %}
         </ul>
      {% elif parent %}
         <ul class="dropdown-menu">
             {% for node in parent.get_children(show_in_menu=True) %}
-                {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True, current_num=loop.index)}}
+                {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True)}}
             {% endfor %}
         </ul>
      {% endif %}
