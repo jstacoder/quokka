@@ -14,14 +14,11 @@
                 data-toggle="dropdown" 
                 aria-haspopup="true" 
                 aria-expanded="false"
-            {% endif %}>                    
+            {% endif %}              
             {% if node.link_in_menu %}
-               <a href="{{ node.get_absolute_url() }}">
-            {% endif %}
-                {{node.title}}
-            {% if node.link_in_menu %}
-                </a>
-            {% endif %}
+                href="{{ node.get_absolute_url() }}"
+            {% endif %}>
+            {{node.title}}            
             {% if has_children %}                                                         
                 <span class="caret"></span>
             {% endif %}
