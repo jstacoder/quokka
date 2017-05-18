@@ -4,8 +4,10 @@ from wtforms.widgets import PasswordInput
 from quokka import admin
 from quokka.core.admin.models import ModelAdmin
 from quokka.utils.translation import _l
+from flask_admin.form import rules
 
-from .models import Role, User, Connection#, ContactInfo
+
+from .models import Role, User, Connection, UserProfile#, ContactInfo
 #from .forms import CreateContactInfoForm
 
 '''class ContactInfoAdmin(ModelAdmin):
@@ -18,6 +20,17 @@ from .models import Role, User, Connection#, ContactInfo
     def get_edit_form(self, *args, **kwargs):
         return CreateContactInfoForm
 '''
+
+class UserProfileAdmin(ModelAdmin):
+    roles_accepted = ('admin',)
+    form_create_rules = [
+        rules.FieldSet(('username','email','user_id'), 'User Data'),
+        rules.Header("TESTING!!!"),
+        rules.Field("email"),
+        "username",
+        rules.Container("_testing.test", rules.Field("email"))
+    ]
+
 class UserAdmin(ModelAdmin):
     roles_accepted = ('admin',)
     column_searchable_list = ('name', 'email')
@@ -48,6 +61,7 @@ class RoleAdmin(ModelAdmin):
 
 class ConnectionAdmin(ModelAdmin):
     roles_accepted = ('admin',)
+
 
 
 admin.register(User, UserAdmin, category=_l("Accounts"), name=_l("User"))
