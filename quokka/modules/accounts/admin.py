@@ -30,7 +30,7 @@ class UserProfileAdmin(ModelAdmin):
         "username",
         rules.Text(
             "<h2>Hmmmmm</h2>"
-        )
+        ),
         rules.Container("_testing.test", rules.Field("email"))
     ]
 
