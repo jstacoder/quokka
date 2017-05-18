@@ -33,7 +33,7 @@
      {% if not parent and nodes %}
         <ul class="nav nav-justified">
             {% for node in nodes|selectattr("show_in_menu") %}
-                {{ build_node(node, current_num=loop.index) }}
+                {{ build_node(node, current_num=loop.index+10) }}
             {% endfor %}
         </ul>
      {% elif parent %}
