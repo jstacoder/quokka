@@ -1,9 +1,14 @@
-{% macro build_node(node, style="", allow_hover=True) %}
+{% macro build_node(node, style="", allow_hover=True, current_num=False) %}
    {% with has_children = node.get_children(show_in_menu=True).count() %}
+    {% if current_num %}
+        {% set current_num = current_num + 1 %}
+    {% else %}
+        {% set current_num = 1 %}
+    {% endif %}
     <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}menu-has-children{%endif%}">
         {% if has_children %}
             <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{ current_num }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     {% if node.link_in_menu %}
                         <a href="{{ node.get_absolute_url() }}" class="menu-link">{{node.title}}</a>
                     {% else %}
@@ -19,27 +24,25 @@
             {% else %}
                 <a href="#" class="menu-link">{{node.title}}</a>
             {% endif %}            
-            {{build_main_nodes(parent=node)}}
         {% endif %}
     </li>
     {% endwith %}
 {% endmacro %}
 
-{% macro build_main_nodes(parent=None, nodes=None) %}
+{% macro build_main_nodes(parent=None, nodes=None, current_num=False) %}
      {% if not parent and nodes %}
         <ul class="nav nav-justified">
             {% for node in nodes|selectattr("show_in_menu") %}
-                {{ build_node(node) }}
+                {{ build_node(node, current_num=current_num) }}
             {% endfor %}
         </ul>
      {% elif parent %}
         <ul class="dropdown-menu">
             {% for node in parent.get_children(show_in_menu=True) %}
-                {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True)}}
+                {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True, current_num=current_num)}}
             {% endfor %}
         </ul>
      {% endif %}
-
 {% endmacro %}
 
 {% macro render_small_author(author, size=30, multiple=False) %}
