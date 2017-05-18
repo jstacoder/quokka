@@ -1,10 +1,10 @@
 {% macro build_node(node, style="", allow_hover=True, current_num=False) %}
    {% with has_children = node.get_children(show_in_menu=True).count() %}
-    {% if current_num %}
+    {#{% if current_num %}
         {% set current_num = current_num + 1 %}
     {% else %}
         {% set current_num = 1 %}
-    {% endif %}
+    {% endif %}#}
     <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}menu-has-children{%endif%}">
         {% if has_children %}
             <div class="dropdown">
@@ -29,17 +29,17 @@
     {% endwith %}
 {% endmacro %}
 
-{% macro build_main_nodes(parent=None, nodes=None, current_num=False) %}
+{% macro build_main_nodes(parent=None, nodes=None) %}
      {% if not parent and nodes %}
         <ul class="nav nav-justified">
             {% for node in nodes|selectattr("show_in_menu") %}
-                {{ build_node(node, current_num=current_num) }}
+                {{ build_node(node, current_num=loop.index) }}
             {% endfor %}
         </ul>
      {% elif parent %}
         <ul class="dropdown-menu">
             {% for node in parent.get_children(show_in_menu=True) %}
-                {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True, current_num=current_num)}}
+                {{build_node(node,style="margin-left:%s0px;" % node.get_ancestors_count(), allow_hover=True, current_num=loop.index)}}
             {% endfor %}
         </ul>
      {% endif %}
