@@ -5,26 +5,28 @@
     {% else %}
         {% set current_num = 1 %}
     {% endif %}#}
-    <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} menu-item {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}dropdown{%endif%}">
-        <div class="btn-group" role="group">
-            <button 
-                class="btn btn-default dropdown-toggle" 
-                type="button" 
-                id="dropdownMenu-{{ node.slug }}" 
-                data-toggle="dropdown" 
-                aria-haspopup="true" 
-                aria-expanded="false">                    
-                    {% if node.link_in_menu %}
-                        <a href="{{ node.get_absolute_url() }}">
-                    {% endif %}
-                        {{node.title}}
-                    {% if node.link_in_menu %}
-                        </a>
-                    {% endif %}                                                         
+    <li style="{{style}}" class="{%if allow_hover %}allow-hover{%endif%} {%if request.path.startswith(node.get_absolute_url()) %}active{% endif %} {%if has_children%}dropdown{%endif%}">        
+        <button 
+            class="btn btn-link{% if has_children %} dropdown-toggle{% endif %}" 
+            type="button" 
+            {% if has_children %}
+            id="dropdownMenu-{{ node.slug }}"
+            data-toggle="dropdown" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+            {% endif %}>                    
+                {% if node.link_in_menu %}
+                    <a href="{{ node.get_absolute_url() }}">
+                {% endif %}
+                    {{node.title}}
+                {% if node.link_in_menu %}
+                    </a>
+                {% endif %}
+                {% if has_children %}                                                         
                     <span class="caret"></span>
-            </button>
-            {{build_main_nodes(parent=node)}}
-        </div>                
+                {% endif %}
+        </button>
+        {{build_main_nodes(parent=node)}}    
     </li>
     {% endwith %}
 {% endmacro %}
