@@ -1,16 +1,39 @@
 import os
 import logging
 import quokka.core.models as m
+import redis as redislib
 from flask.config import Config
 from quokka.utils import parse_conf_data
 from cached_property import cached_property_ttl, cached_property
 
 logger = logging.getLogger()
 
+def load_redis():
+    redis_url = os.environ.get('REDIS_URL', None)
+    return redislib.Redis() if redis_url is None else redislib.from_url(redis_url)
+    
 
 class QuokkaConfig(Config):
     """A Config object for Flask that tries to ger vars from
     database and then from Config itself"""
+
+    _cache_key = None
+    _cache = None
+
+    def __init__(self, *args, **kwargs):
+        if self._cache_key is None:
+            if 'cache_key' in kwargs:
+                _cache_key = kwargs.pop('cache_key')
+            else:
+                _cache_key = self.__class__.__name__
+            self._cache_key = _cache_key
+        super(QuokkaConfig, self).__init__(*args, **kwargs)        
+
+    @property
+    def cache(self):
+        if self._cache is None:
+            self._cache = load_redis()
+        return self._cache
 
     @cached_property
     def store(self):
@@ -40,9 +63,38 @@ class QuokkaConfig(Config):
             logger.warning('Error reading all settings from db: %s' % e)
             return {}
 
+    @cached_property_ttl(500)
+    def all_settings_from_cache(self):        
+        try:
+            return {
+                name: value
+                for name, value in 
+                zip(
+                    self.get_from_cache('SETTINGS_KEYS'),
+                    map(lambda x: self.get_from_cache(x), self.cache.keys("{}:*".format(self._cache_key)))
+                )
+            }
+        except Exception as e:
+            logger.warning('Error reading from cache: {}'.format(e))
+            return {}
+
+    def set_to_cache(self, key, val):
+        _key = self._load_cache_key(key)
+        self.cache.set(_key, val)
+
+    def set_all_to_cache(self):
+        [self.set_to_cache(k, v) for k, v in self.all_setings_from_db.items()]
+
     def get_from_db(self, key, default=None):
         return self.all_setings_from_db.get(key, default)
 
+    def get_from_cache(self, key):
+        _key = self._load_cache_key(key)
+        return self.cache.get(_key)
+
+    def _load_cache_key(self, key):
+        return "{}:{}".format(self._cache_key, key)
+        
     def __getitem__(self, key):
         return self.get_from_db(key) or dict.__getitem__(self, key)
 

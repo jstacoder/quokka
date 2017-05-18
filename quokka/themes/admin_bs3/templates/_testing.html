@@ -1,0 +1,7 @@
+{% macro test() %}
+    <div style='broder: 1px solid black;'>
+        {% if caller %}
+            {{ caller() }}
+        {% endif %}
+    </div>
+{% endmacro %}

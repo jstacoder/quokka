@@ -27,10 +27,11 @@ if heroku_mongo_uri is not None:
     MONGODB_HOST = heroku_mongo_uri
 else:
 # MONGO
-    MONGODB_HOST = 'localhost'
-    MONGODB_PORT = 27017
-    MONGODB_USERNAME = None
-    MONGODB_PASSWORD = None
+    MONGODB_HOST = 'ds135700.mlab.com'
+    MONGODB_PORT = 35700
+    MONGODB_USERNAME = 'quokka_osx'
+    MONGODB_PASSWORD = 'quokka_osx'
+    MONGODB_DB = 'quokka'
 
 # Debug and toolbar
 DEBUG = False
