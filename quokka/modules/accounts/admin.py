@@ -5,7 +5,7 @@ from quokka import admin
 from quokka.core.admin.models import ModelAdmin
 from quokka.utils.translation import _l
 from flask_admin.form import rules
-
+from IPython import embed
 
 from .models import Role, User, Connection, UserProfile#, ContactInfo
 #from .forms import CreateContactInfoForm
@@ -33,6 +33,7 @@ class UserProfileAdmin(ModelAdmin):
         ),
         rules.Container("_testing.test", rules.Field("email"))
     ]
+    embed()
 
 class UserAdmin(ModelAdmin):
     roles_accepted = ('admin',)
