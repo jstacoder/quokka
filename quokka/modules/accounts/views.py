@@ -11,7 +11,12 @@ from flask_security import current_user
 from flask_mongoengine.wtf import model_form
 from quokka.core.templates import render_template
 from .models import User
+from .forms import TestForm
 
+class TestView(MethodView):
+    def get(self):
+        form = TestForm()
+        return render_template("test.html", form=form)
 
 class SwatchView(MethodView):
     """

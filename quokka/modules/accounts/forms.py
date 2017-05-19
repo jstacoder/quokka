@@ -1,7 +1,10 @@
 from us import STATES
 from wtforms import fields, validators, widgets, Form
 from wtforms.fields.html5 import TelField, EmailField
+from flask_admin.contrib.mongoengine.fields import MongoImageField
 
+class TestForm(Form):
+    image = MongoImageField()
 
 class AddressForm(Form):
     
