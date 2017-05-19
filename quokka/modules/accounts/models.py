@@ -11,12 +11,13 @@ from flask_security import UserMixin, RoleMixin
 from flask_security.utils import encrypt_password
 from flask_gravatar import Gravatar
 from .utils import ThemeChanger
-
+from mongoengine.fields import FileField
 
 logger = logging.getLogger()
 
-
-
+class TestImage(db.DynamicDocument):
+    content = FileField()
+    
 # Auth
 class Role(db.Document, ThemeChanger, HasCustomValue, RoleMixin):
 

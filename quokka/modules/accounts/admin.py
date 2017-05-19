@@ -6,8 +6,10 @@ from quokka.core.admin.models import ModelAdmin
 from quokka.utils.translation import _l
 from flask_admin.form import rules
 from IPython import embed
+from flask_mongoengine.fields import ImageField
 
-from .models import Role, User, Connection, UserProfile#, ContactInfo
+from ...core.admin.fields import MyContentImageField
+from .models import Role, User, Connection, UserProfile, TestImage
 #from .forms import CreateContactInfoForm
 
 '''class ContactInfoAdmin(ModelAdmin):
@@ -20,6 +22,11 @@ from .models import Role, User, Connection, UserProfile#, ContactInfo
     def get_edit_form(self, *args, **kwargs):
         return CreateContactInfoForm
 '''
+class TestAdmin(ModelAdmin):
+    form_extra_fields = {
+        "test2": MyContentImageField()
+    }
+
 
 '''class UserProfileAdmin(ModelAdmin):
     roles_accepted = ('admin',)
@@ -33,6 +40,7 @@ from .models import Role, User, Connection, UserProfile#, ContactInfo
         ),
         rules.Container("_testing.test", rules.Field("email"))
     ]
+
     embed()
 '''
 class UserAdmin(ModelAdmin):
@@ -72,5 +80,7 @@ admin.register(User, UserAdmin, category=_l("Accounts"), name=_l("User"))
 admin.register(Role, RoleAdmin, category=_l("Accounts"), name=_l("Roles"))
 admin.register(Connection, ConnectionAdmin,
                category=_l("Accounts"), name=_l("Connection"))
-#admin.register(UserProfile, UserProfileAdmin, category=_l("Accounts"), name=_l("User Profiles"))
+
+#admin.register(UserProfile, UserProfileAdmin, category=_l("Accounts"),name=_l("User Profiles"))
+admin.register(TestImage, TestAdmin, category=_l('Test'),_l(name='Test'))
 #admin.register(ContactInfo, ContactInfoAdmin, category=_l('Accounts'), name=_l('Contact Info'))
