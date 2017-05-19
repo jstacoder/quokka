@@ -83,5 +83,5 @@ admin.register(Connection, ConnectionAdmin,
                category=_l("Accounts"), name=_l("Connection"))
 
 #admin.register(UserProfile, UserProfileAdmin, category=_l("Accounts"),name=_l("User Profiles"))
-admin.register(TestImage, TestAdmin, category=_l('Test'),_l(name='Test'))
+admin.register(TestImage, TestAdmin, category=_l('Test'),name=_l('Test'))
 #admin.register(ContactInfo, ContactInfoAdmin, category=_l('Accounts'), name=_l('Contact Info'))
