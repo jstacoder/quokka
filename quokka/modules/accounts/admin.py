@@ -28,7 +28,7 @@ class TestAdmin(ModelAdmin):
         "test2": MyContentImageField()
     }
 
-class UserProfileAdmin(ModelAdmin):
+'''class UserProfileAdmin(ModelAdmin):
     roles_accepted = ('admin',)
     form_create_rules = [
         rules.FieldSet(('username','email'), 'User Data'),
@@ -40,7 +40,7 @@ class UserProfileAdmin(ModelAdmin):
         ),
         rules.Container("_testing.test", rules.Field("email"))
     ]
-    embed()
+    embed()'''
 
 class UserAdmin(ModelAdmin):
     roles_accepted = ('admin',)
