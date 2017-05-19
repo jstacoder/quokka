@@ -57,6 +57,8 @@ class Content(HasCustomValue, Publishable, LongSlugged,
     license = db.EmbeddedDocumentField(License)
     shortened_url = db.EmbeddedDocumentField(ShortenedURL)
 
+    image_file = db.FileField()
+
     meta = {
         'allow_inheritance': True,
         'indexes': ['-created_at', 'slug'],

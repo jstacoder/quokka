@@ -16,7 +16,7 @@ def load_redis():
 class QuokkaConfig(Config):
     """A Config object for Flask that tries to ger vars from
     database and then from Config itself"""
-
+    _default_ttl = 500
     _cache_key = None
     _cache = None
 
@@ -78,12 +78,25 @@ class QuokkaConfig(Config):
             logger.warning('Error reading from cache: {}'.format(e))
             return {}
 
-    def set_to_cache(self, key, val):
+    def set_to_cache(self, key, val, ttl=None, only_override=False, dont_override=False):
+        """
+            set setting to redis cache, default behavior is to override existing values and create new values
+
+            set only_override=True to prevent creating new values 
+            set dont_override=True to prevent overriding existing values and only add new values
+        """
         _key = self._load_cache_key(key)
-        self.cache.set(_key, val)
+        cache_args = dict(ex=self._default_ttl)
+        if ttl is not None:
+            cache_args.update(ex=ttl)
+        if only_override:
+            cache_args.update(xx=True)
+        if dont_override:
+            cache_args.update(nx=True)
+        self.cache.set(_key, val, **cache_args)
 
     def set_all_to_cache(self):
-        [self.set_to_cache(k, v) for k, v in self.all_setings_from_db.items()]
+        [self.set_to_cache(k, self[k]) for k in list(self)]
 
     def get_from_db(self, key, default=None):
         return self.all_setings_from_db.get(key, default)

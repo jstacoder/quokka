@@ -9,7 +9,7 @@ from quokka.utils.populate import Populate
 
 app = create_app()
 
-
+'''
 if app.config.get("LOGGER_ENABLED"):
     logging.basicConfig(
         level=getattr(logging, app.config.get("LOGGER_LEVEL", "DEBUG")),
@@ -18,7 +18,7 @@ if app.config.get("LOGGER_ENABLED"):
             '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'),
         datefmt=app.config.get("LOGGER_DATE_FORMAT", '%d.%m %H:%M:%S')
     )
-
+'''
 
 @click.command()
 @click.option('--reloader/--no-reloader', default=True)

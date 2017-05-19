@@ -70,3 +70,5 @@ db = MongoEngine()
 db.ListField = ListField
 db.Document = QuokkaDocument
 db.DynamicDocument = QuokkaDynamicDocument
+
+init_app = lambda app, *args, **kwargs: db.init_app(app, *args, **kwargs)

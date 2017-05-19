@@ -33,7 +33,7 @@ CORE_EXTENSIONS = [
     'quokka.ext.generic.configure',
     'quokka.ext.mail.configure',
     'quokka.ext.error_handlers.configure',
-    'quokka.core.db.db.init_app',
+    'quokka.core.db.init_app',
     'quokka.ext.themes.configure',
     'quokka.ext.context_processors.configure',
     'quokka.ext.template_filters.configure',

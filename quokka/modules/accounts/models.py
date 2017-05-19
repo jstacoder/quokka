@@ -83,6 +83,8 @@ class User(db.DynamicDocument, ThemeChanger, HasCustomValue, UserMixin):
     avatar_file_path = db.StringField()
     avatar_url = db.StringField(max_length=255)
 
+    
+
     def get_avatar_url(self, *args, **kwargs):
         if self.use_avatar_from == 'url':
             return self.avatar_url

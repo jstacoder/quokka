@@ -21,7 +21,7 @@ from .models import Role, User, Connection, UserProfile#, ContactInfo
         return CreateContactInfoForm
 '''
 
-class UserProfileAdmin(ModelAdmin):
+'''class UserProfileAdmin(ModelAdmin):
     roles_accepted = ('admin',)
     form_create_rules = [
         rules.FieldSet(('username','email'), 'User Data'),
@@ -34,7 +34,7 @@ class UserProfileAdmin(ModelAdmin):
         rules.Container("_testing.test", rules.Field("email"))
     ]
     embed()
-
+'''
 class UserAdmin(ModelAdmin):
     roles_accepted = ('admin',)
     column_searchable_list = ('name', 'email')
@@ -72,5 +72,5 @@ admin.register(User, UserAdmin, category=_l("Accounts"), name=_l("User"))
 admin.register(Role, RoleAdmin, category=_l("Accounts"), name=_l("Roles"))
 admin.register(Connection, ConnectionAdmin,
                category=_l("Accounts"), name=_l("Connection"))
-admin.register(UserProfile, UserProfileAdmin, category=_l("Accounts"),name=_l("User Profiles"))
+#admin.register(UserProfile, UserProfileAdmin, category=_l("Accounts"), name=_l("User Profiles"))
 #admin.register(ContactInfo, ContactInfoAdmin, category=_l('Accounts'), name=_l('Contact Info'))
