@@ -31,3 +31,5 @@ manage==0.1.13
 flask-codemirror
 
 redis==2.10.5
+
+us==0.9.1
