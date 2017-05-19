@@ -5,6 +5,7 @@ from quokka import admin
 from quokka.core.admin.models import ModelAdmin
 from quokka.utils.translation import _l
 from flask_admin.form import rules
+from flask_admin.contrib.mongoengine.fields import MongoImageField
 from IPython import embed
 from flask_mongoengine.fields import ImageField
 
@@ -24,7 +25,7 @@ from .models import Role, User, Connection, UserProfile, TestImage
 '''
 class TestAdmin(ModelAdmin):
     form_extra_fields = {
-        "test2": MyContentImageField()
+        "test2": MongoImageField()
     }
 
 
