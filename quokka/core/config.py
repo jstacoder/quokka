@@ -1,7 +1,9 @@
 import os
 import logging
-import quokka.core.models as m
-import redis as redislib
+try:
+    import redis as redislib
+except ImportError:
+    redislib = None
 from flask.config import Config
 from quokka.utils import parse_conf_data
 from cached_property import cached_property_ttl, cached_property
@@ -9,8 +11,9 @@ from cached_property import cached_property_ttl, cached_property
 logger = logging.getLogger()
 
 def load_redis():
-    redis_url = os.environ.get('REDIS_URL', None)
-    return redislib.Redis() if redis_url is None else redislib.from_url(redis_url)
+    if redislib is not None:
+        redis_url = os.environ.get('REDIS_URL', None)
+        return redislib.Redis() if redis_url is None else redislib.from_url(redis_url)
     
 
 class QuokkaConfig(Config):
@@ -53,6 +56,7 @@ class QuokkaConfig(Config):
         and Make it possible to use REDIS as a cache
         """
         try:
+            import quokka.core.models as m
             return {
                 item.name: item.value
                 for item in m.config.Config.objects.get(
