@@ -8,6 +8,7 @@ from flask_admin.form import rules
 from IPython import embed
 from flask_mongoengine.fields import ImageField
 
+from ...core.admin.fields import MyContentImageField
 from .models import Role, User, Connection, UserProfile, TestImage
 #from .forms import CreateContactInfoForm
 
@@ -24,7 +25,7 @@ from .models import Role, User, Connection, UserProfile, TestImage
 
 class TestAdmin(ModelAdmin):
     form_extra_fields = {
-        "test2": ImageField(),
+        "test2": MyContentImageField()
     }
 
 class UserProfileAdmin(ModelAdmin):
