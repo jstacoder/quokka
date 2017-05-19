@@ -6,7 +6,7 @@ from quokka.core.admin.models import ModelAdmin
 from quokka.utils.translation import _l
 from flask_admin.form import rules
 from IPython import embed
-from mongoengine.fields import ImageField
+from flask_mongoengine.fields import ImageField
 
 from .models import Role, User, Connection, UserProfile, TestImage
 #from .forms import CreateContactInfoForm
