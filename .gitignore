@@ -66,3 +66,4 @@ etc/mongodata/*.data
 *.pid
 *.cache*
 venv
+venv_win
