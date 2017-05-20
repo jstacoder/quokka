@@ -23,11 +23,19 @@ from .models import Role, User, Connection, UserProfile, TestImage
     def get_edit_form(self, *args, **kwargs):
         return CreateContactInfoForm
 '''
-class TestAdmin(ModelAdmin):
-    form_extra_fields = {
-        "test2": MongoImageField()
-    }
 
+class DBImageAdmin(ModelAdmin):
+    """ """
+    def on_model_change(self, form, instance, created):
+        if not instance.title:
+            instance.title = self._make_image_title(instance)
+            instance.save()
+
+    def _make_image_title(self, image):
+        if not image.image.filename:
+            return ''
+        return os.path.splitext(image.image.filename)[0].lower()
+        
 
 '''class UserProfileAdmin(ModelAdmin):
     roles_accepted = ('admin',)
@@ -81,7 +89,7 @@ admin.register(User, UserAdmin, category=_l("Accounts"), name=_l("User"))
 admin.register(Role, RoleAdmin, category=_l("Accounts"), name=_l("Roles"))
 admin.register(Connection, ConnectionAdmin,
                category=_l("Accounts"), name=_l("Connection"))
-
+admin.register(DBImage, DBImageAdmin, name="DB Images")
 #admin.register(UserProfile, UserProfileAdmin, category=_l("Accounts"),name=_l("User Profiles"))
-admin.register(TestImage, TestAdmin, category=_l('Test'),name=_l('Test'))
+#admin.register(TestImage, TestAdmin, category=_l('Test'),name=_l('Test'))
 #admin.register(ContactInfo, ContactInfoAdmin, category=_l('Accounts'), name=_l('Contact Info'))

@@ -15,19 +15,12 @@ from .utils import ThemeChanger
 
 logger = logging.getLogger()
 
-def lazy_import(module_path, objs):
-    if type(objs) not in [list, tuple]:
-        objs = [objs]
-    rtn = []
-    module = __import__(module_path,{},{},[''])
-    for o in objs:
-        rtn.append(getattr(module, o))
-    if len(rtn) == 1:
-        rtn = rtn[0]
-    return rtn
+class DBImage(db.Document):
+    title = db.StringField(max_length=255)
+    image = db.ImageField()
 
 class HasImages(object):
-    images = db.ListField(db.ReferenceField(lazy_import('quokka.modules.media.models','DBImage')))
+    images = db.ListField(db.ReferenceField(DBImage))
      
 # Auth
 class Role(db.Document, ThemeChanger, HasCustomValue, RoleMixin):
