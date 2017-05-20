@@ -16,6 +16,11 @@ from quokka.modules.media.models import DBImage
 logger = logging.getLogger()
 
 class HasImages(db.DynamicDocument):
+    
+    meta = {
+        'allow_inheritance': True
+    }
+
     images = db.ListField(db.ReferenceField(DBImage))
      
 # Auth
