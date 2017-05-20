@@ -11,12 +11,12 @@ from flask_security import UserMixin, RoleMixin
 from flask_security.utils import encrypt_password
 from flask_gravatar import Gravatar
 from .utils import ThemeChanger
+from quokka.modules.media.models import DBImage
 
 logger = logging.getLogger()
 
-class TestImage(db.DynamicDocument):
-    content = db.FileField()
-    image = db.ImageField()
+class HasImages(db.DynamicDocument):
+    images = db.ListField(db.ReferenceField(DBImage))
      
 # Auth
 class Role(db.Document, ThemeChanger, HasCustomValue, RoleMixin):
@@ -46,7 +46,7 @@ class UserLink(db.EmbeddedDocument):
         return u"{0} - {1}".format(self.title, self.link)
 
 
-class User(db.DynamicDocument, ThemeChanger, HasCustomValue, UserMixin):
+class User(db.DynamicDocument, ThemeChanger, HasCustomValue, UserMixin, HasImages):
     name = db.StringField(max_length=255)
     email = db.EmailField(max_length=255, unique=True)
     password = db.StringField(max_length=255)
