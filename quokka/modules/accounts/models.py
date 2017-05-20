@@ -11,7 +11,7 @@ from flask_security import UserMixin, RoleMixin
 from flask_security.utils import encrypt_password
 from flask_gravatar import Gravatar
 from .utils import ThemeChanger
-from quokka.modules.media.models import DBImage
+#from quokka.modules.media.models import DBImage
 
 logger = logging.getLogger()
 
@@ -21,7 +21,7 @@ class HasImages(db.DynamicDocument):
         'allow_inheritance': True
     }
 
-    images = db.ListField(db.ReferenceField(DBImage))
+    images = db.ListField(db.ReferenceField('DBImage'))
      
 # Auth
 class Role(db.Document, ThemeChanger, HasCustomValue, RoleMixin):
