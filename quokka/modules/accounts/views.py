@@ -20,8 +20,13 @@ class TestView(MethodView):
 
     def post(self):
         form = TestForm(request.form)
-        import code
-        code.interact('start',None,local=dict(locals(), **globals()))
+        class FormException(Exception):
+            def __init__(self, *args, **kwargs):
+                super(FormException, self).__init__(*args, **kwargs)
+                self.form = form
+        raise FormException
+        
+        
 
 
 class SwatchView(MethodView):
