@@ -7,9 +7,6 @@ from quokka.utils.translation import _l
 from flask_admin.form import rules
 from flask_admin.contrib.mongoengine.fields import MongoImageField
 from IPython import embed
-from flask_mongoengine.fields import ImageField
-
-from ...core.admin.fields import MyContentImageField
 from .models import Role, User, Connection, UserProfile, DBImage
 #from .forms import CreateContactInfoForm
 
