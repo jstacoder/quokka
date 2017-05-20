@@ -18,6 +18,12 @@ class TestView(MethodView):
         form = TestForm()
         return render_template("test.html", form=form)
 
+    def post(self):
+        form = TestForm(request.form)
+        import code
+        code.interact('start',None,local=dict(locals(), **globals()))
+
+
 class SwatchView(MethodView):
     """
     change the bootswatch theme
