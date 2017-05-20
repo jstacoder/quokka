@@ -19,6 +19,16 @@ class DBImage(db.Document):
     title = db.StringField(max_length=255)
     image = db.ImageField()
 
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return str(self)
+    
+    def __unicode__(self):
+        return unicode(self.title)
+        
+
 class HasImages(object):
     images = db.ListField(db.ReferenceField(DBImage))
      
