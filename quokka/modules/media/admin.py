@@ -1,4 +1,5 @@
 # coding : utf -8
+import os
 
 from flask import url_for
 from flask_admin import form
@@ -19,7 +20,16 @@ from quokka.utils.translation import _l
 
 class DBImageAdmin(ModelAdmin):
     """ """
+    def on_model_change(self, form, instance, created):
+        if not instance.title:
+            instance.title = self._make_image_title(instance)
+            instance.save()
 
+    def _make_image_title(self, image):
+        if not image.image.filename:
+            return ''
+        return os.path.splitext(image.image.filename)[0].lower()
+        
 class MediaAdmin(ModelAdmin):
     roles_accepted = ('admin', 'editor', 'author')
     column_list = ('title', 'full_path', 'published')
