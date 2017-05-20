@@ -1,10 +1,12 @@
 from us import STATES
 from wtforms import fields, validators, widgets, Form
 from wtforms.fields.html5 import TelField, EmailField
-from flask_admin.contrib.mongoengine.fields import MongoImageField
+from flask_admin.contrib.mongoengine.fields import MongoImageField, MongoFileField
+from flask_wtf import FlaskForm
 
-class TestForm(Form):
+class TestForm(FlaskForm):
     image = MongoImageField()
+    content = MongoFileField()
 
 class AddressForm(Form):
     
@@ -12,6 +14,8 @@ class AddressForm(Form):
         lambda state: state.abbr,
         STATES
     )
+
+
 
     street1 = fields.StringField()
     street2 = fields.StringField()

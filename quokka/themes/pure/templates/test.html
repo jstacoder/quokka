@@ -1,8 +1,9 @@
 {% extends theme('base.html') %}
 {% block content %}
     <form method=post>
+        {{ form.csrf_token() }}
         <label>image:</label>
-        {{ form.image }}
+        {{ form.image() }}
         <input type="submit" class="btn btn-default" value="submit" />
     </form>
 {% endblock %}

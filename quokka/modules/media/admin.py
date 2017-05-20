@@ -12,10 +12,13 @@ from quokka.core.admin.fields import ImageUploadField
 from quokka.utils.upload import dated_path, lazy_media_path
 from quokka.core.admin.models import BaseContentAdmin
 from quokka.core.widgets import TextEditor, PrepopulatedText
-from .models import Image, File, Video, Audio, MediaGallery
+from .models import Image, File, Video, Audio, MediaGallery, DBImage
 from quokka.core.admin.ajax import AjaxModelLoader
 from quokka.utils.translation import _l
+#from flask_admin.contrib.mongoengine.fields import MongoImageField
 
+class DBImageAdmin(ModelAdmin):
+    """ """
 
 class MediaAdmin(ModelAdmin):
     roles_accepted = ('admin', 'editor', 'author')
@@ -150,6 +153,7 @@ class MediaGalleryAdmin(BaseContentAdmin):
     }
 
 
+admin.register(DBImage, DBImageAdmin, name="DB Images")
 admin.register(File, FileAdmin, category=_l('Media'), name=_l("File"))
 admin.register(Video, VideoAdmin, category=_l('Media'), name=_l("Video"))
 admin.register(Audio, AudioAdmin, category=_l('Media'), name=_l("Audio"))
