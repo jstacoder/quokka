@@ -9,7 +9,7 @@ from flask_admin.form.upload import ImageUploadInput
 
 from quokka.core.models.subcontent import SubContent, SubContentPurpose
 from quokka.modules.media.models import Image
-from quokka.modules.accounts.models import TestImage
+
 
 if sys.version_info.major == 3:
     unicode = lambda x: u'{}'.format(x)  # noqa  # flake8: noqa
@@ -96,8 +96,3 @@ class ContentImageField(ImageUploadField):
 
             obj.contents.append(subcontent)
             obj.save()
-
-class MyContentImageField(ContentImageField):
-    def _save_file(self, data, filename):
-        new_image = TestImage(content=data)
-        new_image.save()
