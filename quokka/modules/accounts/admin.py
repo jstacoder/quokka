@@ -10,7 +10,7 @@ from IPython import embed
 from flask_mongoengine.fields import ImageField
 
 from ...core.admin.fields import MyContentImageField
-from .models import Role, User, Connection, UserProfile, TestImage
+from .models import Role, User, Connection, UserProfile, TestImage, DBImage
 #from .forms import CreateContactInfoForm
 
 '''class ContactInfoAdmin(ModelAdmin):
