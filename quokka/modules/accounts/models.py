@@ -26,12 +26,7 @@ def lazy_import(module_path, objs):
         rtn = rtn[0]
     return rtn
 
-class HasImages(db.DynamicDocument):
-    
-    meta = {
-        'allow_inheritance': True
-    }
-
+class HasImages(object):
     images = db.ListField(db.ReferenceField(lazy_import('quokka.modules.media.models','DBImage')))
      
 # Auth
