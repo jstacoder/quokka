@@ -8,12 +8,10 @@ from quokka.utils.translation import _l
 
 
 class PostAdmin(BaseContentAdmin):
-
-    def __init__(self, *args, **kwargs):
-        super(PostAdmin, self).__init__(*args, **kwargs)
-        column_list = list(self.column_list)
+    def scaffold_list_columns(self, *args, **kwargs):        
+        column_list = list(super(PostAdmin, self).scaffold_list_columns(*args, **kwargs))
         column_list += ['image_file']
-        self.column_list = column_list
+        return column_list
 
     column_searchable_list = ('title', 'body', 'summary')
 
