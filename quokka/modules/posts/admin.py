@@ -3,7 +3,7 @@
 from quokka import admin
 from quokka.core.admin.models import BaseContentAdmin
 from quokka.core.widgets import TextEditor, PrepopulatedText
-from .models import Post
+from .models import Post, PostImage
 from quokka.utils.translation import _l
 
 
@@ -22,5 +22,8 @@ class PostAdmin(BaseContentAdmin):
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 
+class PostImageAdmin(BaseContentAdmin):
+    """ """
 
+admin.register(PostImage, PostImageAdmin, category="Content", name="images")
 admin.register(Post, PostAdmin, category=_l("Content"), name=_l("Post"))
