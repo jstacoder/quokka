@@ -6,6 +6,7 @@ import datetime
 from flask import url_for, redirect
 from flask_mistune import markdown
 from flask_admin.contrib.mongoengine import helpers
+from flask_admin.helpers import get_url
 
 from quokka.core.db import db
 from quokka.utils.shorturl import ShorterURL
