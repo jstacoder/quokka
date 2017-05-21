@@ -259,7 +259,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
 {% endmacro %}
 
 {% macro load_page_time(content) %}
-    {% with auithor=Config.get('site', 'site_author', '') %}
+    {% with author=Config.get('site', 'site_author', '') %}
         {% if author != '' %}
             {{ author }}
         {% else %}
@@ -285,29 +285,26 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
 
 
 {% macro load_page_content(content, truncate=None, sidebar=True, link_in_title=False, breadcrumbs=True, license=True, share=True, rec=True, comments=True, footer=True, container_css="") %}
-
         {%if sidebar %}
         <div class="sidebar sidebar-article pure-u">
         <header class="header-article">
             <hgroup>
-              <a href="/" class="back-home"><img class="internal-logo" src="{{ Config.get('site', 'site_logo_internal', theme_static('img/logo_black.png')) }}" alt="{{Config.get('site', 'site_name')}}"></a>
-
-                 {% if content.has_multiple_authors %}
+              <a href="/" class="back-home">
+                <img class="internal-logo" src="{{ Config.get('site', 'site_logo_internal', theme_static('img/logo_black.png')) }}" alt="{{Config.get('site', 'site_name')}}">
+              </a>
+              {% if content.has_multiple_authors %}
                   {%for author in content.get_authors()|sort(attribute="display_name")%}
                      {{render_author_sidebar(author, size=100 / content.get_authors()|length, multiple=True)}}
-
                   {% endfor %}
                  {% else %}
-                 {{render_author_sidebar(content.created_by)}}
+                    {{render_author_sidebar(content.created_by)}}
                  {%endif%}
-
                 <p>Published in {{ content.created_at.strftime('%H:%M of %m/%d/%Y') }}</p>
                 <a href="/" class="back-home">&larr;Home</a>
             </hgroup>
         </header>
     </div>
     {% endif%}
-
     <div class="pure-u {{container_css}}">
         <div class="content">
             <section class="post">
@@ -330,8 +327,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
                         </p>
                     {% endif %}
                 </header>
-
-                 {% with main_image=content.get_main_image_url(thumb=False, default=None) %}
+                 {% with main_image=content.get_main_image_url(thumb=False, default=None, identifier='postimage') %}
                       {% if main_image %}
                             <div style="background-image:url({{main_image}});height:200px;background-repeat: no-repeat;background-position-y: center;">
                             </div>

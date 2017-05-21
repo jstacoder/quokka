@@ -1,0 +1,1 @@
+C:\Python27\python2.exe C:\Python27\Scripts\virtualenv-script.py
