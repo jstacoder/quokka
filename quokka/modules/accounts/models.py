@@ -27,7 +27,11 @@ class DBImage(db.Document):
     
     def __unicode__(self):
         return unicode(self.title)
-        
+
+
+class HasDBImage(object):
+    image = db.ReferenceField(DBImage)
+
 
 class HasImages(object):
     images = db.ListField(db.ReferenceField(DBImage))
