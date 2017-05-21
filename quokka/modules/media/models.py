@@ -68,7 +68,3 @@ class Audio(Media):
 class MediaGallery(Content):
     body = db.StringField(required=False)
 
-class DBImage(db.Document):
-    title = db.StringField(max_length=255)
-    image = db.ImageField()
-    

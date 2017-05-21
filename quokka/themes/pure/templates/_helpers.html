@@ -109,15 +109,13 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
       </p>
   </header>
   <div class="post-description">
-        {% with main_image=content.get_main_image_url(thumb=True, default=None) %}
+        {% with main_image=content.get_main_image_url(thumb=True, default=None, identifier='dbimage') %}
         {% if main_image %}
             <img src="{{main_image}}" height="48" width="48" style="float:left; margin-right: 10px;margin-bottom:10px;"/>
         {% endif %}
       {% endwith %}
       <p>
-
           {{content.get_summary()|truncate(255)|safe()}}
-
       </p>
   </div>
   <div class="post-meta">

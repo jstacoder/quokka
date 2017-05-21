@@ -5,6 +5,7 @@ import logging
 import datetime
 from flask import url_for, redirect
 from flask_mistune import markdown
+from flask_admin.contrib.mongoengine import helpers
 
 from quokka.core.db import db
 from quokka.utils.shorturl import ShorterURL
@@ -79,6 +80,9 @@ class Content(HasCustomValue, Publishable, LongSlugged,
                            default=None, identifier='mainimage'):
         """method returns the path (url) of the main image
         """
+        if identifier == 'dbimage':
+            args = helpers.make_thumb_args(self.image_file)
+            return get_url('admin_dbimage.api_file_view', **args)
         if not isinstance(identifier, (list, tuple)):
             identifier = [identifier]
 
