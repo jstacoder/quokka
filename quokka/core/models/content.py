@@ -81,9 +81,10 @@ class Content(HasCustomValue, Publishable, LongSlugged,
                            default=None, identifier='mainimage'):
         """method returns the path (url) of the main image
         """
-        if identifier == 'dbimage' and self.image_file is not None:
-            args = helpers.make_thumb_args(self.image_file)
-            return get_url('postimage.api_file_view', **args)
+        if (identifier == 'dbimage' or identifier == 'postimage') and self.image_file is not None:
+            image_file = self.image_file if not hasattr(self.image_file, 'image') else getattr(self.image_file, 'image')
+            args = helpers.make_thumb_args(image_file)
+            return get_url('{}.api_file_view'.format(identifier), **args)
         if not isinstance(identifier, (list, tuple)):
             identifier = [identifier]
 

@@ -109,7 +109,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
       </p>
   </header>
   <div class="post-description">
-        {% with main_image=content.get_main_image_url(thumb=True, default=None, identifier='dbimage') %}
+        {% with main_image=content.get_main_image_url(thumb=True, default=None, identifier='postimage') %}
         {% if main_image %}
             <img src="{{main_image}}" height="48" width="48" style="float:left; margin-right: 10px;margin-bottom:10px;"/>
         {% endif %}
@@ -117,7 +117,7 @@ tagged {% for tag in content.tags%}<a class="post-category post-category-design"
       <p>
           {{content.get_summary()|truncate(255)|safe()}}
       </p>
-  </div>
+  </div>    
   <div class="post-meta">
   <a class="pure-button pure-button-primary button-xsmall" href="{{ content.get_absolute_url()}}">Read more...</a>
   </div>
