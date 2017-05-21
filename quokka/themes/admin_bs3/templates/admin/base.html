@@ -28,8 +28,8 @@
   </head>
   <body>
     {% block page_body %}
-    <div class="container-fluid">
-      <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-{% if container_type %}{{ container_type }}{% else %}fluid{% endif %}">
+      <nav class="navbar navbar-{% if navbar_type %}{{ navbar_type }}{% else %}inverse{% endif %}" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-navbar-collapse">
@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
           </button>
           {% block brand %}
-          <a class="navbar-brand" href="#">{{ admin_view.admin.name }}</a>
+            <a class="navbar-brand" href="#">{{ admin_view.admin.name }}</a>
           {% endblock %}
         </div>
         <!-- navbar content -->
@@ -66,8 +66,14 @@
 
       {# store the jinja2 context for form_rules rendering logic #}
       {% set render_ctx = h.resolve_ctx() %}
+      <div class=row>
+        <div class="col-md-9">
+          {% block body %}{% endblock %}
+        </div>
+        <div class="col-md-3">
+          <p>sidebar</p>
+        </div>
 
-      {% block body %}{% endblock %}
     </div>
     {% endblock %}
 
