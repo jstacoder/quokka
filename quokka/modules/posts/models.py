@@ -5,7 +5,7 @@ from quokka.core.db import db
 from quokka.core.models.content import Content
 
 
-class PostImage(db.DynamicDocument):
+class PostImage(Content):
     image = db.ImageField()
 
 class Post(Content):
