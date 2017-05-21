@@ -83,7 +83,7 @@ class Content(HasCustomValue, Publishable, LongSlugged,
         """
         if identifier == 'dbimage' and self.image_file is not None:
             args = helpers.make_thumb_args(self.image_file)
-            return get_url('dbimage.api_file_view', **args)
+            return get_url('postimage.api_file_view', **args)
         if not isinstance(identifier, (list, tuple)):
             identifier = [identifier]
 
