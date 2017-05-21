@@ -11,5 +11,5 @@ class PostImage(db.DynamicDocument):
 class Post(Content):
     # URL_NAMESPACE = 'quokka.modules.posts.detail'
     body = db.StringField(required=True)
-    image_file = db.RefereceField(PostImage)
-        
+    image_file = db.ReferenceField(PostImage)
+
