@@ -205,6 +205,7 @@ nav.pure-menu {
 .pure-blog .post {
   border-bottom: none;
   padding-bottom: 0;
+  min-width: 900px
 }
 
 
