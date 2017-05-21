@@ -30,7 +30,8 @@ class PostAdmin(BaseContentAdmin):
     }
 
 class PostImageAdmin(ModelAdmin):
-    """ """
+    column_list = ('name', 'filetype',)
+    form_columns = ('name','image',)
 
 admin.register(PostImage, PostImageAdmin, category="Content", name="images")
 admin.register(Post, PostAdmin, category=_l("Content"), name=_l("Post"))
