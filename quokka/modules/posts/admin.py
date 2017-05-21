@@ -1,7 +1,7 @@
 # coding : utf -8
 
 from quokka import admin
-from quokka.core.admin.models import BaseContentAdmin
+from quokka.core.admin.models import BaseContentAdmin, ModelAdmin
 from quokka.core.widgets import TextEditor, PrepopulatedText
 from .models import Post, PostImage
 from quokka.utils.translation import _l
@@ -22,7 +22,7 @@ class PostAdmin(BaseContentAdmin):
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 
-class PostImageAdmin(BaseContentAdmin):
+class PostImageAdmin(ModelAdmin):
     """ """
 
 admin.register(PostImage, PostImageAdmin, category="Content", name="images")
