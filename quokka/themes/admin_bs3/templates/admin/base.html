@@ -29,7 +29,7 @@
   <body>
     {% block page_body %}
     <div class="container">
-      <nav class="navbar navbar-default" role="navigation">
+      <nav class="navbar navbar-inverse" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#admin-navbar-collapse">
@@ -50,18 +50,18 @@
           </ul>
           {% endblock %}
 
-          {% block menu_links %}
-          <ul class="nav navbar-nav navbar-right">
-            {{ layout.menu_links() }}
-          </ul>
-          {% endblock %}
-          {% block access_control %}
-          {% endblock %}
+              {% block menu_links %}
+                <ul class="nav navbar-nav navbar-right">
+                  {{ layout.menu_links() }}
+                </ul>
+              {% endblock %}
+              {% block access_control %}
+              {% endblock %}
         </div>
       </nav>
 
       {% block messages %}
-      {{ layout.messages() }}
+        {{ layout.messages() }}
       {% endblock %}
 
       {# store the jinja2 context for form_rules rendering logic #}
