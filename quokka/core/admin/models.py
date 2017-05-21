@@ -69,7 +69,7 @@ def format_post_image(self, request, obj, fieldname, *args, **kwargs):
     field = getattr(obj, fieldname)
     name = field.image.filename
     size = field.image.gridout.size
-    return html.span(style='border:1px solid black;')("{} - {}".format(name, do_filesizeformat(size))
+    return html.span(style='border:1px solid black;')("{} - {}".format(name, do_filesizeformat(size)))
 
 
 def view_on_site(self, request, obj, fieldname, *args, **kwargs):
