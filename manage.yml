@@ -22,6 +22,7 @@ shell:
         quokka.modules.accounts.models.Connection:
         quokka.modules.accounts.models.UserLink:
         quokka.modules.posts.models.Post:
+        quokka.modules.posts.models.PostImage:
         quokka.core.models.subcontent.SubContent:
         quokka.core.models.channel.Channel:
         quokka.core.models.config.Config:

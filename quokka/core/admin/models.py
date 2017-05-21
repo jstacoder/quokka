@@ -6,6 +6,7 @@ import datetime
 
 from flask import redirect, flash, url_for, Response, current_app, request
 from wtforms import fields
+from jinja2.filters import do_filesizeformat    
 
 from flask_admin.contrib.mongoengine import ModelView
 from flask_admin.contrib.fileadmin import FileAdmin as _FileAdmin
@@ -63,6 +64,12 @@ def format_datetime(self, request, obj, fieldname, *args, **kwargs):
     return html.div(style='min-width:130px;')(
         getattr(obj, fieldname).strftime(self.get_datetime_format())
     )
+
+def format_post_image(self, request, obj, fieldname, *args, **kwargs):
+    field = getattr(obj, fieldname)
+    name = field.image.filename
+    size = field.image.gridout.size
+    return html.span(style='border:1px solid black;')("{} - {}".format(name, do_filesizeformat(size))
 
 
 def view_on_site(self, request, obj, fieldname, *args, **kwargs):
@@ -159,7 +166,8 @@ class ModelAdmin(ThemeMixin, Roled, ModelView):
         'ul': format_ul,
         'status': format_status,
         'get_url': get_url,
-        'link': format_link
+        'link': format_link,
+        'image_file': format_post_image,
     }
     column_formatters_args = {}
 
@@ -306,7 +314,7 @@ class BaseContentAdmin(ContentActions, PublishActions, ModelAdmin):
 
     form_widget_args = {
         'summary': {
-            'style': 'width: 400px; height: 100px;'
+            'style': 'width: 400px; height: 300px;'
         },
         'title': {'style': 'width: 400px'},
         'slug': {'style': 'width: 400px'},

@@ -13,6 +13,8 @@ class PostAdmin(BaseContentAdmin):
         column_list += ['image_file']
         return column_list
 
+    column_list = ('image_file',)
+
     column_searchable_list = ('title', 'body', 'summary')
 
     form_columns = ['title', 'slug', 'channel', 'related_channels', 'summary',
@@ -23,6 +25,7 @@ class PostAdmin(BaseContentAdmin):
 
     form_args = {
         'body': {'widget': TextEditor()},
+        'summary': {'widget': TextEditor()},
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 
