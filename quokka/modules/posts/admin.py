@@ -13,7 +13,7 @@ class PostAdmin(BaseContentAdmin):
         column_list += ['image_file']
         return column_list
 
-    column_list = ('image_file',)
+    column_list = ('title', 'channel', 'published', 'image_file',)
 
     column_searchable_list = ('title', 'body', 'summary')
 
