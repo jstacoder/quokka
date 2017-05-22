@@ -1,8 +1,10 @@
 # coding : utf -8
+from flask import request
 
 from quokka import admin
 from quokka.core.admin.models import BaseContentAdmin, ModelAdmin
 from quokka.core.widgets import TextEditor, PrepopulatedText
+from quokka.core.config import load_redis
 from .models import Post, PostImage
 from quokka.utils.translation import _l
 
@@ -32,6 +34,16 @@ class PostAdmin(BaseContentAdmin):
 class PostImageAdmin(ModelAdmin):
     column_list = ('name', 'filetype',)
     form_columns = ('name','image',)
+
+    def api_file_view(self):
+        redis = load_redis()
+        pk = request.args.get('id')    
+        if pk in redis.keys("*"):
+            return redis.get(pk)
+        response = super(PostImageAdmin, self).api_file_view()
+        redis.set(pk, response, ex=5000)
+        return response 
+
 
 admin.register(PostImage, PostImageAdmin, category="Content", name="images")
 admin.register(Post, PostAdmin, category=_l("Content"), name=_l("Post"))
