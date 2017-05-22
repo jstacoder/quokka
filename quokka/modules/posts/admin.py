@@ -4,6 +4,7 @@ from flask import request
 from quokka import admin
 from quokka.core.admin.models import BaseContentAdmin, ModelAdmin
 from quokka.core.widgets import TextEditor, PrepopulatedText
+from quokka.utils.routing import expose
 from quokka.core.config import load_redis
 from .models import Post, PostImage
 from quokka.utils.translation import _l
@@ -35,6 +36,7 @@ class PostImageAdmin(ModelAdmin):
     column_list = ('name', 'filetype',)
     form_columns = ('name','image',)
 
+    @expose('/api/file/')
     def api_file_view(self):
         redis = load_redis()
         pk = request.args.get('id')    
