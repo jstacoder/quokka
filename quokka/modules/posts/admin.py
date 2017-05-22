@@ -46,12 +46,7 @@ class PostImageAdmin(ModelAdmin):
         redis = load_redis()
         pk = request.args.get('id')    
         if pk in redis.keys("*"):
-            image = pickle.loads(redis.get(pk))            
-        if 'keys_{}'.format(pk) in redis.keys("*"):
-            key1, key2 = redis.get('keys_{}'.format(pk)).split(':')
-            part1 = pickle.loads(redis.get(key1))
-            part2 = pickle.loads(redis.get(key2))
-            image = part1 + part2
+            image = pickle.loads(redis.get(pk))                    
         if image is not None:
             response = Response(image,
                         content_type="image/jpeg",
@@ -66,14 +61,7 @@ class PostImageAdmin(ModelAdmin):
             try:
                 redis.set(pk, pickle.dumps(image), ex=5000)
             except ResponseError:
-                keys_key = 'keys_{}'.format(pk)
-                keys = 'key1_{0}:key2_{0}'.format(pk)
-                redis.set(keys_key, keys)
-                size = len(image)
-                first_half = image[:size/2]
-                last_half = image[size/2:]
-                redis.set('key1_{}'.format(pk), pickle.dumps(first_half))
-                redis.set('key2_{}'.format(pk), pickle.dumps(last_half))
+                pass
         return response 
 
 
