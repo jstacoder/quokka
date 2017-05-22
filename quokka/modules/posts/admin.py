@@ -1,4 +1,6 @@
 # coding : utf -8
+import pickle
+
 from flask import request
 
 from quokka import admin
@@ -41,9 +43,17 @@ class PostImageAdmin(ModelAdmin):
         redis = load_redis()
         pk = request.args.get('id')    
         if pk in redis.keys("*"):
-            return redis.get(pk)
+            image = pickle.loads(redis.get(pk))
+            response = Response(image,
+                        content_type="image/jpeg",
+                        headers={
+                            'Content-Length': len(image)
+                        }
+            )
+            return response
         response = super(PostImageAdmin, self).api_file_view()
-        redis.set(pk, response, ex=5000)
+        image = response.data
+        redis.set(pk, pickle.dumps(image), ex=5000)
         return response 
 
 
