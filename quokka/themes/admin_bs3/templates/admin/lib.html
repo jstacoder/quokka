@@ -244,3 +244,82 @@
   <input name="_continue_editing" type="submit" class="btn btn-default" value="{{ _gettext('Save and Continue Editing') }}" />
   {% endif %}
 {% endmacro %}
+
+
+{# ---------------------- Quokka CUSTOM -------------------------- #}
+{% macro format_value(value) %}
+
+    {% if value|isinstance('dict') %}
+
+       {{ render_table(headers=('Key', 'Value'), values=value.items()) }}
+
+    {% elif value|isinstance('list') or value|isinstance('tuple') %}
+
+    	<ul>
+    	    {%for item in value %}<li>{{format_value(item)}}</li> {% endfor %}
+    	</ul>
+
+    {% elif value|isinstance('Blueprint') or value|isinstance('QuokkaModule') %}
+
+	     {{render_table(headers=('Attribute', 'Value'), values=(("name", value.name), ("module", value.import_name), ("static", value.static_folder), ("templates", value.template_folder)))}}
+
+    {% elif value|isinstance('Theme') %}
+
+	     {{render_table(headers=('Attribute', 'Value'), values=(("name", value.name), ("author", value.author),("description", value.description),("version", value.version),("site", value.website)))}}
+
+    {% elif value|isinstance('Rule') %}
+
+	   {{render_table(headers=('Attribute', 'Value'), values=(("arguments", value.arguments),("defaults", value.defaults),("methods", value.methods), ("endpoint", value.endpoint)))}}
+
+    {% elif value|isinstance('MongoClient') %}
+
+       {{ value.port }} - {{ value.host }}
+
+    {% else %}
+
+       {{value}}
+
+    {% endif %}
+
+{% endmacro %}
+
+{% macro render_table(headers, values) %}
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+       <tr>
+	   {% for item in headers %}
+	       <th>{{item}}</th>
+	   {% endfor %}
+       </tr>
+    </thead>
+    <tbody>
+
+    {% for item in values %}
+       <tr>
+	   {%for subitem in item %}
+	      <td>{{format_value(subitem)}}</td>
+	   {% endfor %}
+       </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+{% endmacro %}
+
+{#
+	{{render_table(headers=('Attribute', 'Value'), values=(("rule", value.rule), ("arguments", value.arguments),("defaults", value.defaults),("methods", value.methods)))}}
+
+
+
+    {% elif value|isinstance('Blueprint') or value|isinstance('QuokkaModule') %}
+
+{{render_table(headers=('Attribute', 'Value'), values=(("name", value.name), ("module", value.import_name), ("static", value.static_folder), ("templates", value.template_folder)))}}
+
+    {% elif value|isinstance('Theme') %}
+
+	{{render_table(headers=('Attribute', 'Value'), values=(("name", value.name), ("author", value.author),("description", value.description),("version", value.version),("site", value.website)))}}
+
+    {% elif value|isinstance('Ruledsdsd') %}
+
+
+#}
