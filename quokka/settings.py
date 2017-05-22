@@ -325,7 +325,7 @@ ADMIN_ICONS = [
 ]
 
 # front end theme
-DEFAULT_THEME = 'pure'
+DEFAULT_THEME = 'uikit'
 
 # default content extension for url buildind
 CONTENT_EXTENSION = "html"
