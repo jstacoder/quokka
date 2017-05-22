@@ -62,7 +62,7 @@ If you want to have a new theme installed you can use quokkacms tool
 The above commands will download material design theme to your themes folder,
 then just enable it.
 """
-DEFAULT_THEME = 'uikit'
+DEFAULT_THEME = 'pure'
 ADMIN_THEME = 'admin'
 
 SECURITY_SEND_REGISTER_EMAIL = True
