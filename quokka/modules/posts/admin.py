@@ -1,7 +1,7 @@
 # coding : utf -8
 import pickle
 
-from flask import request
+from flask import request, Response
 
 from quokka import admin
 from quokka.core.admin.models import BaseContentAdmin, ModelAdmin
