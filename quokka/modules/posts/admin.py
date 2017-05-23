@@ -12,6 +12,7 @@ from quokka.utils.routing import expose
 from quokka.core.config import load_redis
 from .models import Post, PostImage
 from quokka.utils.translation import _l
+from flask_admin.contrib.mongoengine.view import ModelView
 
 
 class PostAdmin(BaseContentAdmin):
@@ -36,7 +37,7 @@ class PostAdmin(BaseContentAdmin):
         'slug': {'widget': PrepopulatedText(master='title')}
     }
 
-class PostImageAdmin(ModelAdmin):
+class PostImageAdmin(ModelView):
     column_list = ('name', 'filetype',)
     form_columns = ('name','image',)
 
