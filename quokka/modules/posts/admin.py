@@ -38,7 +38,7 @@ class PostAdmin(BaseContentAdmin):
     }
 
 class PostImageAdmin(ModelView):
-    column_list = ('name', 'filetype',)
+    column_list = ('name', 'filetype', 'image',)
     form_columns = ('name','image',)
 
     @expose('/api/file/')
