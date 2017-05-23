@@ -56,6 +56,11 @@
                 </ul>
               {% endblock %}
               {% block access_control %}
+                {% if current_user.is_authenticated %}
+                  <a href="/accounts/logut">logout</a>
+                {% else %}
+                  <a href="/accounts/login">login</a>
+                {% endif %}
               {% endblock %}
         </div>
       </nav>
