@@ -23,7 +23,6 @@ from flask_admin.contrib.mongoengine import ModelView
 '''
 
 class DBImageAdmin(ModelView):
-    """ """
     def on_model_change(self, form, instance, created):
         if not instance.title:
             instance.title = self._make_image_title(instance)
