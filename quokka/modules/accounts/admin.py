@@ -33,6 +33,8 @@ class DBImageAdmin(ModelAdmin):
             return ''
         return os.path.splitext(image.image.filename)[0].lower()
         
+    def is_accessible(self):
+        return True
 
 '''class UserProfileAdmin(ModelAdmin):
     roles_accepted = ('admin',)
