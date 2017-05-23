@@ -79,13 +79,14 @@
       {# store the jinja2 context for form_rules rendering logic #}
       {% set render_ctx = h.resolve_ctx() %}
       <div class=row>
-        <div class="col-md-9">
+        <div class="col-md-{% if Config.get('admin','add_sidebar',default='False') == 'True' %}9{% else %}12{% endif %}">
           {% block body %}{% endblock %}
         </div>
-        <div class="col-md-3">
-          <p>sidebar</p>
-        </div>
-
+        {% if Config.get('admin','add_sidebar',default='False') == 'True' %}
+          <div class="col-md-3">
+            <p>sidebar</p>
+          </div>
+        {% endif %}
     </div>
     {% endblock %}
 
