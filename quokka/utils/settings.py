@@ -37,10 +37,13 @@ def get_setting_value(key, default=None):
             return app.config.get(key, default)
     except:
         return default
-
-
-def get_password(f):
+        
+def get_password(f, env=True):
+    if env:
+        pw = os.environ.get(f,None)
+        if pw is not None:
+            return pw
     try:
         return open('.%s_password.txt' % f).read().strip()
-    except:
-        return
+    except OSError:
+        pass
