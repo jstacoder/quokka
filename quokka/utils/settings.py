@@ -40,11 +40,12 @@ def get_setting_value(key, default=None):
         return default
 
 def get_password(f, env=True):
+    f = '%s_password' % f
     if env:
-        pw = os.environ.get(f,None)
+        pw = os.environ.get(f.upper(),None)
         if pw is not None:
             return pw
     try:
-        return open('.%s_password.txt' % f).read().strip()
+        return open('.%s.txt' % f).read().strip()
     except OSError:
         pass
