@@ -1,7 +1,4 @@
 {% if security.registerable or security.recoverable or security.confirmabled %}
-
-<nav class="navbar navbar-default" role="navigation">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
         {% if not request.path.endswith('login') %}
             <a class="pure-button pure-button-primary" href="{{ url_for_security('login', **request.args) }}">Login</a>
         {% endif %}
@@ -19,7 +16,4 @@
         {% if security.confirmable %}
             <a class="pure-button button-small" href="{{ url_for_security('send_confirmation', **request.args) }}">Confirm account</a>
         {% endif %}
-    </div>
-</nav>
-
 {% endif %}
