@@ -1,4 +1,4 @@
-{% from theme('security/_menu.html') import security_buttons with context %}
+{% from theme('security/_macros.html') import security_buttons with context %}
 
 {% macro build_node(node, style="", allow_hover=True) %}
    {% with has_children = node.get_children(show_in_menu=True).count() %}
