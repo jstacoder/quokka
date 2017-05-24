@@ -1,4 +1,5 @@
 import logging
+import os
 from flask import current_app, request
 from quokka.core.db import db
 from quokka.core.app import QuokkaApp
@@ -37,7 +38,7 @@ def get_setting_value(key, default=None):
             return app.config.get(key, default)
     except:
         return default
-        
+
 def get_password(f, env=True):
     if env:
         pw = os.environ.get(f,None)
