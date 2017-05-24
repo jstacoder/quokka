@@ -26,9 +26,9 @@
 {% macro security_buttons(register=false, login=false, forgotpw=false, confirm=false, links=false, authenticated=false) %}
     {% if login %}
       {% if not authenticated %}
-        <a class="{% if links %}btn btn-link{% endif %}pure-button pure-button-primary" href="{{ url_for_security('login', **request.args) }}">Login</a>
+        <a class="pure-button {% if links %}btn btn-link{% else %}pure-button-primary{% endif %}" href="{{ url_for_security('login', **request.args) }}">Login</a>
       {% else %}
-          <a class="{% if links %}btn btn-link{% endif %}pure-button pure-button-primary" href="{{ url_for_security('logout', **request.args) }}">Logout</a>
+          <a class="pure-button {% if links %}btn btn-link{% else %}pure-button-primary{% endif %}" href="{{ url_for_security('logout', **request.args) }}">Logout</a>
           {% endif %}
     {% endif %}
     {% if register %}
