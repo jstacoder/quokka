@@ -1,3 +1,5 @@
+{% from theme('security/_menu.html') import security_buttons with context %}
+
 {% macro build_node(node, style="", allow_hover=True) %}
    {% with has_children = node.get_children(show_in_menu=True).count() %}
     <li style="{{style}}" class="{%if allow_hover %}pure-menu-allow-hover{%endif%} pure-menu-item {%if request.path.startswith(node.get_absolute_url()) %}pure-menu-selected{% endif %} {%if has_children%}pure-menu-has-children{%endif%}">
@@ -54,6 +56,6 @@
 </div>
 <nav class="pure-menu pure-menu-horizontal">
    {{build_main_nodes(nodes=nodes)}}
-   {% include theme('security/_menu.html') %}
+   {{ security_buttons('login')) %}
 </nav> 
 {% endmacro %}
