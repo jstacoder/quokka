@@ -62,7 +62,7 @@
                           <i class="icon-user"></i> {{ current_user.login }} <span class="caret"></span>
                       </a>
     <ul class="dropdown-menu">
-        <li><a href="{{ url_for('security.logout_view') }}">Log out</a></li>
+        <li><a href="{{ url_for('security.logout') }}">Log out</a></li>
     </ul>
 </div>
 {% endif %}
