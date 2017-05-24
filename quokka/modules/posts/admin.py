@@ -40,6 +40,7 @@ class PostAdmin(BaseContentAdmin):
 class PostImageAdmin(ModelView):
     column_list = ('name', 'filetype', 'image',)
     form_columns = ('name','image',)
+    column_editable_list = ('name', 'filetype',)
 
     @expose('/api/file/')
     def api_file_view(self):
