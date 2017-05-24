@@ -56,6 +56,6 @@
 </div>
 <nav class="pure-menu pure-menu-horizontal">
    {{build_main_nodes(nodes=nodes)}}
-   {{ security_buttons(login=true, authenticated=current_user.is_authenticated) }}
+   {{ security_buttons(login=true, links=true, authenticated=current_user.is_authenticated) }}
 </nav> 
 {% endmacro %}
