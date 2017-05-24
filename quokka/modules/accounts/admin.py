@@ -8,6 +8,7 @@ from flask_admin.form import rules
 from flask_admin.contrib.mongoengine.fields import MongoImageField
 from IPython import embed
 from .models import Role, User, Connection, UserProfile, DBImage
+from flask_admin.contrib.mongoengine import ModelView
 #from .forms import CreateContactInfoForm
 
 '''class ContactInfoAdmin(ModelAdmin):
@@ -21,8 +22,7 @@ from .models import Role, User, Connection, UserProfile, DBImage
         return CreateContactInfoForm
 '''
 
-class DBImageAdmin(ModelAdmin):
-    """ """
+class DBImageAdmin(ModelView):
     def on_model_change(self, form, instance, created):
         if not instance.title:
             instance.title = self._make_image_title(instance)

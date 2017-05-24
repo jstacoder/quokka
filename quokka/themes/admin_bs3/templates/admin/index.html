@@ -1,6 +1,6 @@
 {% extends theme('admin/master.html') %}
 
-{% block body %}
+{% block head_tail %}
     <div class="row">
         <style>
         /*    .post-list {
@@ -17,8 +17,10 @@
                 list-style-type: none;
             }
         </style>
-
-        <div class="well col-xs-9">
+{% endblock %}
+{% block body %}
+        <div class="col-xs-9">
+            <div class=well>
             {%if config.get('ADMIN_HEADER') %}{{config.get('ADMIN_HEADER')|safe}}{% endif %}
             <h1>{{ admin_view.admin.name }}</h1>
             <h3>{{_gettext('Latest Posts')}}:</h3>
@@ -49,6 +51,7 @@
                 {% endfor %}
             </ul>
             <p>you need to look at <a href="{{ url_for('comment.index_view',flt0_0=0) }}">{{ get_unmoderated_comments()|count }}</a> comments!</p>
+            </div>
         </div>
         
         <div class="col-xs-3">
