@@ -380,7 +380,7 @@ The way this works is by letting the client do an HTTP POST request and
 set the X-HTTP-Method-Override header and set the value to the intended
 HTTP method (such as PATCH).
 """
-HTTP_PROXY_METHOD_OVERRIDE = False
+HTTP_PROXY_METHOD_OVERRIDE = True
 
 
 """

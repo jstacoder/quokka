@@ -16,6 +16,9 @@
                   {{ render_field_with_errors(register_user_form.name, class="form-control", placeholder="Your Name Please") }}
                   {{ render_field_with_errors(register_user_form.email, class="form-control", placeholder="you@domain.com") }}
                   {{ render_field_with_errors(register_user_form.password, class="form-control") }}
+                  {% if register_user_form.questions %}
+                      {{ render_field_with_errors(register_user_form.questions, class="form-control") }}
+                  {% endif %}
                   {% if register_user_form.password_confirm %}
                     {{ render_field_with_errors(register_user_form.password_confirm, class="form-control") }}
                   {% endif %}

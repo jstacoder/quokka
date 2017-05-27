@@ -2,7 +2,7 @@ from flask_security.forms import RegisterForm, Required
 from flask_security import Security as _Security
 from flask_security import MongoEngineUserDatastore
 from flask_wtf import RecaptchaField
-from wtforms import TextField
+from wtforms import TextField, fields
 from quokka.modules.accounts.models import Role, User
 from quokka.core.templates import render_template
 
@@ -19,10 +19,19 @@ class ExtendedRegisterForm(RegisterForm):
 class RecaptchaForm(ExtendedRegisterForm):
     recaptcha = RecaptchaField()
 
+class SecurityQuestionRegisterForm(ExtendedRegisterForm):
+    questions = fields.FieldList(
+        fields.SelectField(),
+        'questions',
+        None,
+        min_entries=1,
+        max_entries=5,
+    )
+
 
 def configure(app, db):
-    register_form = ExtendedRegisterForm
-    confirm_register_form = ExtendedRegisterForm
+    register_form = SecurityQuestionRegisterForm
+    confirm_register_form = SecurityQuestionRegisterForm
     if app.config.get('SECURITY_RECAPTCHA_ENABLED'):
         register_form = RecaptchaForm
         confirm_register_form = RecaptchaForm
