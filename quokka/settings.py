@@ -302,6 +302,7 @@ Quokka-Themes checks `THEME_PATHS` configuration variable to find
 directories that contain themes. The theme's identifier in info.json
 must match the name of its directory.
 """
+DEBUG = True
 # THEME_PATHS = '/etc/themes/'
 
 # default admin THEME
