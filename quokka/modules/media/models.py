@@ -67,4 +67,7 @@ class Audio(Media):
 
 class MediaGallery(Content):
     body = db.StringField(required=False)
+    media_type = db.StringField(choices=(('file','File'),('video','Video'),('audio','Audio'),('image','Image')), default=('image','Image'))
+    items = db.ListField(db.GenericReferenceField())
+    
 
