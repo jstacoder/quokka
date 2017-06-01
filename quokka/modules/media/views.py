@@ -5,7 +5,7 @@ from flask import redirect, url_for
 from flask.views import MethodView
 from quokka.core.templates import render_template
 
-from ..mixins.views import ContextMixin, TemplateMixin
+from ..mixins.views import TemplateMixin
 from ..mixins.forms import FormMixin
 
 from flask_wtf import FlaskForm as Form
@@ -21,7 +21,7 @@ class UploadForm(Form):
     file = fields.FileField('file upload')
     submit = fields.SubmitField('submit')
 
-class ListCloudinaryView(ContextMixin, TemplateMixin, FormMixin):
+class ListCloudinaryView(FormMixin, TemplateMixin):
     template_name = 'media/list.html'
     form_class = UploadForm
     

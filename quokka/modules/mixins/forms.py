@@ -1,5 +1,6 @@
+from .views import ContextMixin
 
-class FormMixin(object):
+class FormMixin(ContextMixin):
     form_class = None
 
     def get_form_class(self):
