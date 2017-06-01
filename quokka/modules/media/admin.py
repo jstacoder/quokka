@@ -19,7 +19,7 @@ from quokka.core.admin.ajax import AjaxModelLoader
 from quokka.utils.translation import _l
 from flask_admin.contrib.mongoengine.views import ModelView
 
-class CloudinaryAdmin(ModelView):
+class CloudinaryAdmin(ModelAdmin):
     def get_edit_form(self):
         return UploadForm
     
@@ -170,4 +170,4 @@ admin.register(Audio, AudioAdmin, category=_l('Media'), name=_l("Audio"))
 admin.register(Image, ImageAdmin, category=_l('Media'), name=_l("Image"))
 admin.register(MediaGallery, MediaGalleryAdmin,
                category=_l('Content'), name=_l("Media Gallery"))
-admin.register(CloudinaryImage, CloudinaryAdmin, category=_l("Media"), name=_l("new images"))
+admin.register(CloudinaryImage, CloudinaryAdmin, category=_l("Media"), name=_l("new"))
