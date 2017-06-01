@@ -1,5 +1,6 @@
 <form method="post">
-    <label>upload file</label>
-    <input type=file name=file />
-    <input type=submit name=submit value=submit />
+    {{ form.csrf_token() }}
+    <label>{{ form.file.label.text }}</label>
+    {{ form.file() }}
+    {{ form.submit() }}
 </form>

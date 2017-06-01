@@ -6,14 +6,24 @@ from flask.views import MethodView
 from quokka.core.templates import render_template
 
 from ..mixins.views import ContextMixin, TemplateMixin
+from ..mixins.forms import FormMixin
+
+from flask_wtf import FlaskForm as Form
+from wtforms import fields, widgets, validators
+
 from .models import Media, CloudinaryImage
 
 import logging
 logger = logging.getLogger()
 
 
-class ListCloudinaryView(ContextMixin, TemplateMixin):
+class UploadForm(Form):
+    file = fields.FileField('file upload')
+    submit = fields.SubmitField('submit')
+
+class ListCloudinaryView(ContextMixin, TemplateMixin, FormMixin):
     template_name = 'media/list.html'
+    form_class = UploadForm
     
     def get(self):
         logger.info('getting media from cloudinary')        
