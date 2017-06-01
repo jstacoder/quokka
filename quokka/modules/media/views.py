@@ -4,10 +4,21 @@
 from flask.views import MethodView
 from quokka.core.templates import render_template
 
-from .models import Media
+from quokka.modules.mixins.views import ContextMixin, TemplateMixin
+
+from .models import Media, CloudinaryImage
 
 import logging
 logger = logging.getLogger()
+
+
+class ListCloudinaryView(ContextMixin, TemplateMixin):
+    template_name = 'media/list.html'
+    
+    def get(self):
+        logger.info('getting media from cloudinary')        
+        return super(ListCloudinaryView, self).get()
+
 
 
 class ListView(MethodView):
