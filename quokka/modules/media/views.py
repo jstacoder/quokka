@@ -19,6 +19,7 @@ logger = logging.getLogger()
 
 class UploadForm(Form):
     file = fields.FileField('file upload')
+    name = fields.StringField()
     submit = fields.SubmitField('submit')
 
 class ListCloudinaryView(FormMixin, TemplateMixin):
@@ -38,7 +39,9 @@ class ListCloudinaryView(FormMixin, TemplateMixin):
         file_names = self.request.files.keys()
         for file_name in file_names:
             upload_file = self.request.files.get(file_name)
-            upload_file.name = upload_file.filename
+            form = self.form_class(self.request.form)
+            
+            upload_file.name = upload_file.filename if form.name.data is None else form.name.data
             CloudinaryImage.create_new_image(upload_file)
         return redirect(url_for('.list_cloud'))
 

@@ -1,6 +1,11 @@
 <form method="post" enctype="multipart/form-data">
     {{ form.csrf_token() }}
+    
+    <label>{{ form.name.label.text }}</label>
+    {{ form.name() }}
+    
     <label>{{ form.file.label.text }}</label>
     {{ form.file() }}
+    
     {{ form.submit() }}
 </form>
