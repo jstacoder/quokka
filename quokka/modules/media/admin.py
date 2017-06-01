@@ -20,16 +20,10 @@ from quokka.utils.translation import _l
 from flask_admin.contrib.mongoengine.views import ModelView
 
 class CloudinaryAdmin(ModelAdmin):
-    def get_edit_form(self):
+    def get_form(self):
         return UploadForm
     
-    def get_create_form(self):
-        return UploadForm
-
-    def get_queryset(self, *args, **kwargs):
-        return CloudinaryImage.objects.all()
-
-    column_list = ['main_image_path']
+column_list = ('main_image_path',)
 
 class MediaAdmin(ModelAdmin):
     roles_accepted = ('admin', 'editor', 'author')
