@@ -25,6 +25,11 @@ class ListCloudinaryView(FormMixin, TemplateMixin):
     template_name = 'media/list.html'
     form_class = UploadForm
     
+    def get_context_data(self, *args, **kwargs):
+        context = super(ListCloudinaryView, self).get_context_data(*args, **kwargs)
+        context['medias'] = CloudinaryImage.objects.all()
+        return context
+
     def get(self):
         logger.info('getting media from cloudinary')        
         return super(ListCloudinaryView, self).get()
