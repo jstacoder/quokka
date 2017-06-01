@@ -6,7 +6,10 @@
     {% else %}
         <ul>
             {% for media in medias %}
-                <li>{{ media.file_name }}</li>
+                <li>
+                    {{ media.file_name }}
+                    <image src="{{ media.thumbnail_path }}" />
+                </li>
             {% endfor %}
         </ul>
     {% endif %}
