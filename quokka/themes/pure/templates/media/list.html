@@ -1,0 +1,13 @@
+{% extends theme("base.html") %}
+
+{% block content %}
+    {% if medias|length == 0 %}
+        <p>No Media has been uploaded yet</p>
+    {% else %}
+        <ul>
+            {% for media in medias %}
+                <li>{{ media.file_name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
