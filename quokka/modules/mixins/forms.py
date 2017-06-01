@@ -8,6 +8,6 @@ class FormMixin(object):
         return self.form_class
 
     def get_context_data(self, **kwargs):
-        context = super(ViewName, self).get_context_data(**kwargs)
+        context = super(FormMixin, self).get_context_data(**kwargs)
         context['form'] = self.get_form_class()()
         return context
