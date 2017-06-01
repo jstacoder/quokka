@@ -13,10 +13,23 @@ from quokka.core.admin.fields import ImageUploadField
 from quokka.utils.upload import dated_path, lazy_media_path
 from quokka.core.admin.models import BaseContentAdmin
 from quokka.core.widgets import TextEditor, PrepopulatedText
-from .models import Image, File, Video, Audio, MediaGallery
+from .models import Image, File, Video, Audio, MediaGallery, CloudinaryImage
+from .views import UploadForm
 from quokka.core.admin.ajax import AjaxModelLoader
 from quokka.utils.translation import _l
-#from flask_admin.contrib.mongoengine.fields import MongoImageField
+from flask_admin.contrib.mongoengine.views import ModelView
+
+class CloudinaryAdmin(ModelView):
+    def get_edit_form(self):
+        return UploadForm
+    
+    def get_create_form(self):
+        return UploadForm
+
+    def get_queryset(self, *args, **kwargs):
+        return CloudinaryImage.objects.all()
+
+    column_list = ['main_image_path']
 
 class MediaAdmin(ModelAdmin):
     roles_accepted = ('admin', 'editor', 'author')
@@ -157,3 +170,4 @@ admin.register(Audio, AudioAdmin, category=_l('Media'), name=_l("Audio"))
 admin.register(Image, ImageAdmin, category=_l('Media'), name=_l("Image"))
 admin.register(MediaGallery, MediaGalleryAdmin,
                category=_l('Content'), name=_l("Media Gallery"))
+admin.register(CloudinaryImage, CloudinaryAdmin, category=_l("Media"), name=_l("new images"))
