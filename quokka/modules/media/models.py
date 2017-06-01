@@ -8,6 +8,8 @@ from flask_admin import form
 from quokka.core.db import db
 from quokka.core.models.channel import Channel
 from quokka.core.models.content import Content
+from cloudinary.uploader import upload
+from cloudinary.utils import cloudinary_url
 
 from .controller import MediaController
 
@@ -44,7 +46,6 @@ class Media(MediaController, Content):
             logger.warning(str(e))
             return Channel.get_homepage()
 
-
 class Image(Media):
     DEFAULT_CHANNEL = 'media/images'
 
@@ -52,6 +53,47 @@ class Image(Media):
     def thumb(self):
         return form.thumbgen_filename(self.path)
 
+class CloudinaryImage(db.Document):
+    DEFAULT_CHANNEL = 'media/images'
+
+    main_image_path = db.StringField()
+    thumbnail_path = db.StringField()
+    avatar_path = db.StringField()
+    public_id = db.StringField()
+    file_name = db.StringField()
+
+    @classmethod
+    def create_new_image(cls, file_from_request):
+        instance = cls()
+
+        upload_result = upload(file_from_request)
+        instance.public_id = upload_result.get('public_id')
+        instance.thumbnail_path, options = cloudinary_url(upload_result['public_id'], format="jpg", crop="fill", width=100,
+                                                     height=100)
+        instance.avatar_path, options = cloudinary_url(upload_result['public_id'], format="jpg", crop="fill", width=100,
+                                                     height=100, radius=20, effect="sepia")
+        instance.main_image_path = upload_result.get('url')
+        instance.file_name = upload_result.get('original_filename')
+        instance.save()
+        return instance
+
+    @property
+    def full_path(self):
+        return Markup(
+            "<a target='_blank' href='{main_image_path}'>{file_name}</a>".format(
+                main_image_path=self.main_image_path,
+                file_name=self.file_name
+            )
+        )
+
+    @property
+    def thumb(self):
+        return self.thumbnail_path
+
+    @property
+    def avatar(self):
+        return self.avatar_path
+     
 
 class File(Media):
     DEFAULT_CHANNEL = 'media/files'
