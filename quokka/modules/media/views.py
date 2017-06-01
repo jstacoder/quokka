@@ -35,8 +35,11 @@ class ListCloudinaryView(FormMixin, TemplateMixin):
         return super(ListCloudinaryView, self).get()
 
     def post(self):
-        upload_file = self.request.files.get('file')
-        CloudinaryImage.create_new_image(upload_file)
+        file_names = self.request.files.keys()
+        for file_name in file_names:
+            upload_file = self.request.files.get(file_name)
+            upload_file.name = upload_file.filename
+            CloudinaryImage.create_new_image(upload_file)
         return redirect(url_for('.list_cloud'))
 
 
