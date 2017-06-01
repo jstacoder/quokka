@@ -1,7 +1,15 @@
-from flask import views
+from flask import views, request, current_app
 from quokka.core.templates import render_template
 
-class BaseView(views.MethodView):
+class BaseView(views.MethodView): 
+    @property
+    def request(self):
+        return request
+
+    @property
+    def app(self):
+        return current_app
+
     def get(self, *args, **kwargs):
         return self.render(*args, **kwargs)
 
