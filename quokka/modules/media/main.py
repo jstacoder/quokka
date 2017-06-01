@@ -7,5 +7,5 @@ module = QuokkaModule("media", __name__, template_folder="templates")
 # from .views import ListView, DetailView
 # module.add_url_rule('/media/', view_func=ListView.as_view('list'))
 # module.add_url_rule('/media/<slug>/', view_func=DetailView.as_view('detail'))
-import views
+from . import views
 module.add_url_rule('/cloudinary/', view_func=views.ListCloudinaryView.as_view('list_cloud'))

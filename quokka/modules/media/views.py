@@ -4,7 +4,7 @@
 from flask.views import MethodView
 from quokka.core.templates import render_template
 
-from quokka.modules.mixins.views import ContextMixin, TemplateMixin
+from ..mixins.views import ContextMixin, TemplateMixin
 
 from .models import Media, CloudinaryImage
 
