@@ -23,7 +23,7 @@ class CloudinaryAdmin(ModelAdmin):
     def get_form(self):
         return UploadForm
     
-column_list = ('main_image_path',)
+    column_list = ('main_image_path',)
 
 class MediaAdmin(ModelAdmin):
     roles_accepted = ('admin', 'editor', 'author')
