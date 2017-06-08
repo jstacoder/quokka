@@ -164,4 +164,4 @@ admin.register(Audio, AudioAdmin, category=_l('Media'), name=_l("Audio"))
 admin.register(Image, ImageAdmin, category=_l('Media'), name=_l("Image"))
 admin.register(MediaGallery, MediaGalleryAdmin,
                category=_l('Content'), name=_l("Media Gallery"))
-admin.register(CloudinaryImage, CloudinaryAdmin, category=_l("Media"), name=_l("new"))
+#admin.register(CloudinaryImage, CloudinaryAdmin, category=_l("Media"), name=_l("new"))
