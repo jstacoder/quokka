@@ -28,6 +28,8 @@ class UploadForm(Form):
     name = fields.StringField()    
 
 def _list_thumbnail_cloudinary(instance, context, model, name):
+    if not hasattr(model,'thumbnail_path'):
+        model = getattr(model,name)
     if not model.thumbnail_path:
         return ''
     return Markup(
