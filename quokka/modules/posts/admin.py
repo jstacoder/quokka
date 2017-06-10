@@ -29,7 +29,7 @@ class UploadForm(Form):
 
 def _list_thumbnail_cloudinary(instance, context, model, name):
     if not hasattr(model,'thumbnail_path'):
-        model = getattr(model,name)
+        model = getattr(model,'image_file')
     if not model.thumbnail_path:
         return ''
     return Markup(
@@ -74,6 +74,8 @@ class PostAdmin(BaseContentAdmin):
         column_list = list(super(PostAdmin, self).scaffold_list_columns(*args, **kwargs))
         column_list += ['image_file']
         return column_list
+
+    
 
     column_list = ('title', 'channel', 'published', 'image_file',)
 
