@@ -34,7 +34,21 @@ class CloudinaryAdmin(ModelView):
         file_names = request.files.keys()
         file_obj = request.files.get(file_names[0])        
         file_obj.name = file_obj.filename if form.name.data is None else form.name.data
-        self.model.create_new_image(file_obj)
+        try:
+            model = self.model.create_new_image(file_obj)
+            self._on_model_change(form, model, True)
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                flash(gettext('Failed to create record. %(error)s',
+                              error=format_error(ex)),
+                      'error')
+                logger.exception('Failed to create record.')
+
+            return False
+        else:
+            self.after_model_change(form, model, True)
+
+        return model
 
 
     list_columns = ('main_image_path','public_id','file_name',)
