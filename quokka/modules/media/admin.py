@@ -19,11 +19,23 @@ from quokka.core.admin.ajax import AjaxModelLoader
 from quokka.utils.translation import _l
 from flask_admin.contrib.mongoengine.views import ModelView
 
-class CloudinaryAdmin(ModelAdmin):
+from flask_wtf import FlaskForm as Form
+from wtforms import fields, widgets, validators
+
+import logging
+logger = logging.getLogger()
+
+
+class UploadForm(Form):
+    file = fields.FileField('file upload')
+    name = fields.StringField()
+    submit = fields.SubmitField('submit')
+
+class CloudinaryAdmin(ModelView):
     def get_form(self):
         return UploadForm
     
-    column_list = ('main_image_path',)
+    #column_list = ('main_image_path',)
 
 class MediaAdmin(ModelAdmin):
     roles_accepted = ('admin', 'editor', 'author')
