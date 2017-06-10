@@ -31,7 +31,7 @@ class CloudinaryAdmin(ModelView):
     def get_form(self):
         return UploadForm
 
-    coulmn_list = ('main_image_path','public_id','file_name',)
+    list_columns = ('main_image_path','public_id','file_name',)
 
 class PostAdmin(BaseContentAdmin):
     def scaffold_list_columns(self, *args, **kwargs):        
