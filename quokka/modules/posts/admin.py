@@ -24,12 +24,18 @@ logger = logging.getLogger()
 
 class UploadForm(Form):
     file = fields.FileField('file upload')
-    name = fields.StringField()
-    submit = fields.SubmitField('submit')
+    name = fields.StringField()    
 
 class CloudinaryAdmin(ModelView):
     def get_form(self):
         return UploadForm
+
+    def create_model(self, form):        
+        file_names = request.files.keys()
+        file_obj = request.files.get(file_names[0])        
+        file_obj.name = file_obj.filename if form.name.data is None else form.name.data
+        self.model.create_new_image(file_obj)
+
 
     list_columns = ('main_image_path','public_id','file_name',)
 
