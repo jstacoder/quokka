@@ -30,10 +30,18 @@ class UploadForm(Form):
 def _list_thumbnail_cloudinary(instance, context, model, name):
     #if not hasattr(model,'thumbnail_path'):
     #    model = getattr(model,'image_file')
-    if not model.thumbnail_path:
-        return ''
+    thumbnail = ''
+    if hasattr(model, 'thumbnail_path'):
+        if not model.thumbnail_path:
+            return ''
+        thumbnail = model.thumbnail_path
+    else:
+        if hasattr(model,'image_file'):
+            if not model.image_file.thumbnail_path:
+                return ''
+            thumbnail = model.image_file.thumbnail_path
     return Markup(
-        '<img src="{}" width=100>'.format(model.thumbnail_path)
+        '<img src="{}" width=100>'.format(thumbnail)
     )
 
 class CloudinaryAdmin(ModelView):
