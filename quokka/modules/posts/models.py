@@ -3,6 +3,7 @@ import os
 
 from quokka.core.db import db
 from quokka.core.models.content import Content
+from quokka.modules.media.models import CloudinaryImage
 
 
 class PostImage(db.Document):
@@ -21,7 +22,7 @@ class PostImage(db.Document):
 class Post(Content):
     # URL_NAMESPACE = 'quokka.modules.posts.detail'
     body = db.StringField(required=True)
-    image_file = db.ReferenceField(PostImage)
+    image_file = db.ReferenceField(CloudinaryImage)
 
 
 
