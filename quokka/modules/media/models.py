@@ -15,6 +15,12 @@ from .controller import MediaController
 
 logger = logging.getLogger()
 
+def _list_thumbnail_cloudinary(instance, context, model, name):
+    if not model.thumbnail_path:
+        return ''
+    return Markup(
+        '<img src="{}" width=100>'.format(model.thumbnail_name)
+    )
 
 class Media(MediaController, Content):
 
@@ -61,6 +67,10 @@ class CloudinaryImage(db.Document):
     avatar_path = db.StringField()
     public_id = db.StringField()
     file_name = db.StringField()
+
+    def list_thumbnail(self, *args, **kwargs):
+        return _list_thumbnail_cloudinary(self, *args, **kwargs)
+        
 
     @classmethod
     def create_new_image(cls, file_from_request):

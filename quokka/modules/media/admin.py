@@ -108,6 +108,12 @@ class AudioAdmin(FileAdmin):
         )
     }
 
+def _list_thumbnail_cloudinary(instance, context, model, name):
+    if not model.thumbnail_path:
+        return ''
+    return Markup(
+        '<img src="{}" width=100>'.format(model.thumbnail_name)
+    )
 
 def _list_thumbnail(instance, context, model, name):
     if not model.path:

@@ -2,6 +2,7 @@
 import pickle
 
 from flask import request, Response
+from jinja2 import Markup
 
 from redis.exceptions import ResponseError
 
@@ -26,7 +27,20 @@ class UploadForm(Form):
     file = fields.FileField('file upload')
     name = fields.StringField()    
 
+def _list_thumbnail_cloudinary(instance, context, model, name):
+    if not instance.thumbnail_path:
+        return ''
+    return Markup(
+        '<img src="{}" width=100>'.format(instance.thumbnail_name)
+    )
+
 class CloudinaryAdmin(ModelView):
+    column_formatters = {
+        'thumb': _list_thumbnail_cloudinary
+    }
+
+    
+
     def get_form(self):
         return UploadForm
 
@@ -51,7 +65,7 @@ class CloudinaryAdmin(ModelView):
         return model
 
 
-    list_columns = ('main_image_path','public_id','file_name',)
+    list_columns = ('main_image_path','thumb','public_id','file_name',)
 
 class PostAdmin(BaseContentAdmin):
     def scaffold_list_columns(self, *args, **kwargs):        
