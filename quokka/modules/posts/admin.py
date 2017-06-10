@@ -70,10 +70,10 @@ class CloudinaryAdmin(ModelView):
 class PostAdmin(BaseContentAdmin):
     def scaffold_list_columns(self, *args, **kwargs):        
         column_list = list(super(PostAdmin, self).scaffold_list_columns(*args, **kwargs))
-        column_list += ['image_file.thumbnail_path']
+        column_list += ['image_file']
         return column_list
 
-    column_list = ('title', 'channel', 'published', 'image_file.thumbnail_path',)
+    column_list = ('title', 'channel', 'published', 'image_file',)
 
     column_searchable_list = ('title', 'body', 'summary')
 
@@ -87,6 +87,9 @@ class PostAdmin(BaseContentAdmin):
         'body': {'widget': TextEditor()},
         'summary': {'widget': TextEditor()},
         'slug': {'widget': PrepopulatedText(master='title')}
+    }
+    column_formatters = {
+        'image_file': _list_thumbnail_cloudinary
     }
 
 class PostImageAdmin(ModelView):
