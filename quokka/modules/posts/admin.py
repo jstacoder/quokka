@@ -28,10 +28,10 @@ class UploadForm(Form):
     name = fields.StringField()    
 
 def _list_thumbnail_cloudinary(instance, context, model, name):
-    if not instance.thumbnail_path:
+    if not model.thumbnail_path:
         return ''
     return Markup(
-        '<img src="{}" width=100>'.format(instance.thumbnail_name)
+        '<img src="{}" width=100>'.format(model.thumbnail_name)
     )
 
 class CloudinaryAdmin(ModelView):
