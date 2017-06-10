@@ -37,7 +37,7 @@ def _list_thumbnail_cloudinary(instance, context, model, name):
         thumbnail = model.thumbnail_path
     else:
         if hasattr(model,'image_file'):
-            if not model.image_file.thumbnail_path:
+            if not model.image_file:
                 return ''
             thumbnail = model.image_file.thumbnail_path
     return Markup(
