@@ -13,6 +13,23 @@ from quokka.core.config import load_redis
 from .models import Post, PostImage
 from quokka.utils.translation import _l
 from flask_admin.contrib.mongoengine.view import ModelView
+from quokka.modules.media.models import CloudinaryImage
+
+from flask_wtf import FlaskForm as Form
+from wtforms import fields, widgets, validators
+
+import logging
+logger = logging.getLogger()
+
+
+class UploadForm(Form):
+    file = fields.FileField('file upload')
+    name = fields.StringField()
+    submit = fields.SubmitField('submit')
+
+class CloudinaryAdmin(ModelView):
+    def get_form(self):
+        return UploadForm
 
 
 class PostAdmin(BaseContentAdmin):
@@ -74,3 +91,4 @@ class PostImageAdmin(ModelView):
 
 admin.register(PostImage, PostImageAdmin, category="Content", name="images")
 admin.register(Post, PostAdmin, category=_l("Content"), name=_l("Post"))
+admin.register(CloudinaryImage, CloudinaryAdmin, category="Content", name="new")
