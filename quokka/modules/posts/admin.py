@@ -49,7 +49,17 @@ class CloudinaryAdmin(ModelView):
         'thumb': _list_thumbnail_cloudinary
     }
 
-    
+    def edit_form(self, obj=None):
+        class FormClass(object):
+            file = None
+            name = None
+
+        fc = FormClass()
+        if obj:
+            fc.file = obj.filename
+            fc.name = obj.name
+        return super(CloudinaryAdmin, self).edit_form(obj=fc)
+        
 
     def get_form(self):
         return UploadForm
