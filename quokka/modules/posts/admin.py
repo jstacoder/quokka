@@ -64,6 +64,21 @@ class CloudinaryAdmin(ModelView):
     def get_form(self):
         return UploadForm
 
+    def update_model(self, form, obj):
+        file_names = request.files.keys()
+        if len(file_names):
+            file_obj = request.files.get(file_names[0])        
+            file_obj.name = file_obj.filename if form.name.data is None else form.name.data
+            obj = self.model.create_new_image(file_obj)
+        if form.name.data is not None:
+            obj.file_name = form.name.data
+        try:
+            obj.save()            
+            self._on_model_change(form, model, True)
+            return True
+        except Exception as e:
+            return False
+
     def create_model(self, form):        
         file_names = request.files.keys()
         file_obj = request.files.get(file_names[0])        
