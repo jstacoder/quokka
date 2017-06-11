@@ -56,8 +56,8 @@ class CloudinaryAdmin(ModelView):
 
         fc = FormClass()
         if obj:
-            fc.file = obj.filename
-            fc.name = obj.name
+            fc.file = obj.main_image_path
+            fc.name = obj.file_name
         return super(CloudinaryAdmin, self).edit_form(obj=fc)
         
 
