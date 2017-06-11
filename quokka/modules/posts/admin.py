@@ -76,11 +76,14 @@ class CloudinaryAdmin(ModelView):
         if form.name.data is not None:
             obj.file_name = form.name.data
         try:
+            
+            self._on_model_change(form, model, False)
             obj.save()            
-            self._on_model_change(form, model, True)
-            return True
         except Exception as e:
             return False
+        else:
+            self.after_model_change(form, obj, False)
+        return True
 
     def create_model(self, form):        
         file_names = request.files.keys()
