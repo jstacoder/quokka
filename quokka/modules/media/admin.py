@@ -13,8 +13,7 @@ from quokka.core.admin.fields import ImageUploadField
 from quokka.utils.upload import dated_path, lazy_media_path
 from quokka.core.admin.models import BaseContentAdmin
 from quokka.core.widgets import TextEditor, PrepopulatedText
-from .models import Image, File, Video, Audio, MediaGallery, CloudinaryImage
-from .views import UploadForm
+from quokka.modules.media.models import Image, File, Video, Audio, MediaGallery, CloudinaryImage
 from quokka.core.admin.ajax import AjaxModelLoader
 from quokka.utils.translation import _l
 from flask_admin.contrib.mongoengine.views import ModelView
