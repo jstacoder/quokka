@@ -416,3 +416,4 @@ OPBEAT = {
 }   
 
 SENTRY_ENABLED = True
+SENTRY_DSN = os.environ.get('SENTRY_DSN','')
