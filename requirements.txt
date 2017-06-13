@@ -36,3 +36,5 @@ redis==2.10.5
 
 us==0.9.1
 opbeat[flask]
+sentry[flask]
+newrelic
