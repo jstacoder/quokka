@@ -406,4 +406,11 @@ $   curl https://intake.opbeat.com/api/v1/
     -d branch=`git rev-parse --abbrev-ref HEAD` \
     -d status=completed
 """
-# OPBEAT = None
+OPBEAT = {
+    'ORGANIZATION_ID': '02ce0adf33d44632bbea13d37eb474f0',
+    'APP_ID': '2fe880df7b',
+    'SECRET_TOKEN':'a9c9f5f86c2289228e8c6b8be03d98a26e03dd18',
+    'INCLUDE_PATHS': ['quokka'],
+    'DEBUG': True,
+    'LOGGING': True,
+}   
