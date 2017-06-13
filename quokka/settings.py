@@ -414,3 +414,5 @@ OPBEAT = {
     'DEBUG': True,
     'LOGGING': True,
 }   
+
+SENTRY_ENABLED = True
