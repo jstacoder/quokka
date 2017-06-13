@@ -47,8 +47,12 @@ def load_from_folder(app):
             try:
                 importlib.import_module(".".join([module_root, 'admin']))
             except ImportError as e:
-                app.logger.info(
+                app.logger.error(
                     "%s module does not define admin or error: %s", fname, e
+                )
+            except exception as e:
+                app.logger.error(
+                    "%s has an error: %s", fname, e
                 )
 
     app.logger.info("%s modules loaded", mods.keys())
